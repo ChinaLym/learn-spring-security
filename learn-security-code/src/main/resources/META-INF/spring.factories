@@ -1,0 +1,4 @@
+# Auto Configuration
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.lym.security.code.config.ValidateCodeBeanConfig,\
+  com.lym.security.code.controller.ValidateCodeController

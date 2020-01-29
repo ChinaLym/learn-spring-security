@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="learn-security-app" />
+        <module name="learn-security-autoconfig" />
+        <module name="learn-security-browser" />
+        <module name="learn-security-code" />
+        <module name="learn-security-core" />
+        <module name="learn-security-demo" />
+        <module name="learn-security-starter" />
+        <module name="learn-security-starter-code" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="demo-security-core" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

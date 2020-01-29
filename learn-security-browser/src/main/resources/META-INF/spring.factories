@@ -1,0 +1,5 @@
+# Auto Configuration
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.lym.security.browser.config.BrowserBeanConfig,\
+com.lym.security.browser.config.BrowserSecurityConfig,\
+com.lym.security.browser.controller.BrowserSecurityController
