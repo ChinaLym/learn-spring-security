@@ -36,7 +36,7 @@ spring cloud security：2.1.5.RELEASE
     - oauth2.0 讲解，各种授权模式，区别等
     - IAM 领域术语介绍
  
-- 介绍与 spring security 相关的项目，这些 spring 的项目是干什么的，有什么区别，是否被废弃
+- [介绍与 spring security 相关的项目，这些 spring 的项目是干什么的，有什么区别，是否被废弃](spring-intro.md)
     - spring-boot 的 oauth
     - spring-cloud-security
     - spring-cloud-oauth
