@@ -6,7 +6,8 @@
 
 先上结论： 选择 Spring 官方推荐的 spring security 5.2.x +
 
-我的猜测：Spring官方未来会废弃一切与 security 相关的子项目并迁移至 Spring Security 中。
+我的猜测：Spring 官方未来会废弃一切与 security 相关的子项目并迁移至 Spring Security 中，
+未来想在 Spring 中寻找与 security 相关的部分，只需学习 spring security 即可。
 
 不再推荐使用 `spring-security-xxx`、`spring-social`等
 
