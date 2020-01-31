@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.lym.security.app.config;
 
 import com.lym.security.app.properties.OAuth2Properties;
@@ -43,7 +40,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 	@Autowired
 	private UserDetailsService userDetailsService;
 
-	/** spring security 提供 */
+	/** fixme lack spring security 提供 */
 	@Autowired
 	private AuthenticationManager authenticationManager;
 
@@ -97,6 +94,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 			for (OAuth2Properties.OAuth2ClientProperties client : oAuth2Properties.getClients()) {
 				builder.withClient(client.getClientId())
 						.secret(client.getClientSecret())
+						.redirectUris("http://www.xxx.com")
 
 						.authorizedGrantTypes("refresh_token", "authorization_code", "password")
 						.accessTokenValiditySeconds(client.getAccessTokenValidateSeconds())

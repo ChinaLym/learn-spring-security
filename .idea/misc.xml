@@ -7,6 +7,12 @@
         <option value="$PROJECT_DIR$/pom.xml" />
       </list>
     </option>
+    <option name="ignoredFiles">
+      <set>
+        <option value="$PROJECT_DIR$/learn-security-autoconfig/pom.xml" />
+        <option value="$PROJECT_DIR$/learn-security-starter/pom.xml" />
+      </set>
+    </option>
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="11 (1)" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />

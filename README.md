@@ -10,6 +10,9 @@
 
 该脚手架不会强制项目依赖脚手架中的类，使用者在使用时，也是依赖 spring 中的。
 
+帮助使用者快速了解 oauth2.0 以及如何通过 spring security 集成
+
+![oauth2.0.png](img/oauth2.0.png)
 
 ## spring 版本选型：2020/2/1 最新的发布版
 
@@ -67,5 +70,22 @@ spring cloud security：2.1.5.RELEASE
     - 对于面非浏览器项目的封装，前后分离项目，如访问方可能为 nodeJs、App、微信小程序等，则可以直接引用这个包
     
     
-- learn-security-demo（demo演示）
-    - 使用本脚手架提供的 starter 快速开发项目、并演示如何自定义提供脚手架中提供的部分
+- demos（示例工程）
+    - learn-security-demo
+        - 使用本脚手架提供的 starter 快速开发项目、并演示如何自定义提供脚手架中提供的部分
+    - auth-sever 
+        - 基于 spring security oauth 实现的认证服务器
+    - auth-resource-server
+        - 基于 spring security oauth 实现的资源服务器
+        
+        
+- 企业级认证中心一般包含点
+    - 提供认证功能（统一返回 access_token、refresh_token）
+        - 作为 oauth2-auth-server
+            - 自身系统账号密码登录
+            - 自身系统手机短信登录
+        - 作为 oauth2-client
+            - 第三方（如QQ、微信等）登录
+        
+    - 提供单点登录服务
+    

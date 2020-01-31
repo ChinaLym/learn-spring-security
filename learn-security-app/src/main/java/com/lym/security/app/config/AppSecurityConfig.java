@@ -35,7 +35,7 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        http.apply(formAuthenticationSecurityConfig);
+        formAuthenticationSecurityConfig.configure(http);
 
         //apply 方法：<C extends SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity>> C apply(C configurer)
 
@@ -55,7 +55,7 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
                             // 用户名、密码登录请求
                             SecurityConst.URL_AUTHENTICATION_FORM,
                             // 手机验证码登录请求
-                        SecurityConst.URL_AUTHENTICATION_SMS,
+                        SecurityConst.URL_AUTHENTICATION_SMS
 
                         )
                     .permitAll()

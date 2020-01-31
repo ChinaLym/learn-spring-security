@@ -13,11 +13,9 @@
         <module>learn-security-core</module>
         <module>learn-security-browser</module>
         <module>learn-security-app</module>
-        <module>learn-security-demo</module>
-        <module>learn-security-starter</module>
-        <module>learn-security-autoconfig</module>
         <module>learn-security-code</module>
         <module>learn-security-starter-code</module>
+        <module>demos</module>
     </modules>
 
 

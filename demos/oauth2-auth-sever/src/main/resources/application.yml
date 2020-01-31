@@ -1,0 +1,9 @@
+server:
+  port: 8081
+
+spring:
+  security:
+    oauth2:
+      authorizationserver:
+        jwt:
+          enabled: false

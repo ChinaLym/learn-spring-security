@@ -11,8 +11,10 @@ import org.springframework.security.crypto.codec.Base64;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.common.exceptions.UnapprovedClientAuthenticationException;
 import org.springframework.security.oauth2.provider.*;
+import org.springframework.security.oauth2.provider.client.BaseClientDetails;
 import org.springframework.security.oauth2.provider.token.AuthorizationServerTokenServices;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
+import org.springframework.util.CollectionUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -61,15 +63,19 @@ public class AppAuthenticationSuccessHandler extends SavedRequestAwareAuthentica
 		String clientId = tokens[0];
 		String clientSecret = tokens[1];
 
-		ClientDetails clientDetails = clientDetailsService.loadClientByClientId(clientId);
 
-		if (clientDetails == null) {
+		BaseClientDetails mockDetail = new BaseClientDetails();
+		mockDetail.setScope(Collections.singleton("all"));
+		mockDetail.setRegisteredRedirectUri(Collections.singleton("http://example.com"));
+		ClientDetails clientDetails = mockDetail;//clientDetailsService.loadClientByClientId(clientId);
+
+		/*if (clientDetails == null) {
 			// 对应的配置信息不存在
 			throw new UnapprovedClientAuthenticationException("Invalid clientId." + clientId);
 		} else if (!StringUtils.equals(clientDetails.getClientSecret(), clientSecret)) {
 			// clientSecret 错误
 			throw new UnapprovedClientAuthenticationException("ClientId or clientSecret incorrect." + clientId);
-		}
+		}*/
 		
 		TokenRequest tokenRequest = new TokenRequest(Collections.emptyMap(), clientId, clientDetails.getScope(), "custom");
 		

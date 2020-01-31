@@ -105,9 +105,11 @@ public class ValidateCodeFilter extends OncePerRequestFilter implements Initiali
                     logger.debug("validateCode success " + request.getRequestURI());
                 }
             } catch (Exception e) {
-                authenticationFailureHandler.onAuthenticationFailure(request, response, new AuthenticationException(e.getMessage() + type, e) {
-                });
-                return;
+                if(authenticationFailureHandler != null){
+                    authenticationFailureHandler.onAuthenticationFailure(request, response,
+                            new AuthenticationException(e.getMessage() + type, e) {});
+                }
+                throw e;
             }
         }
 

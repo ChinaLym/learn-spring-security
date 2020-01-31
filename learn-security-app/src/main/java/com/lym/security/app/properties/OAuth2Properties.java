@@ -3,6 +3,9 @@
  */
 package com.lym.security.app.properties;
 
+import com.lym.security.SecurityConst;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+
 import java.time.temporal.ChronoUnit;
 
 /**
@@ -10,6 +13,7 @@ import java.time.temporal.ChronoUnit;
  *
  * @author zhailiang
  */
+@ConfigurationProperties(prefix = SecurityConst.CONFIG_PREFIX + ".app")
 public class OAuth2Properties {
 	
 	/**
