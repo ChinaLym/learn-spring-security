@@ -12,6 +12,7 @@
 
 帮助使用者快速了解 oauth2.0 以及如何通过 spring security 集成
 
+**OAuth2.0 流程，以及本脚手架采用的解决方案：**
 ![oauth2.0.png](img/oauth2.0.png)
 
 ## spring 版本选型：2020/2/1 最新的发布版
