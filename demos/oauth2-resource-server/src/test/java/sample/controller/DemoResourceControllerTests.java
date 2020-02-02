@@ -13,11 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package sample;
+package sample.controller;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -39,8 +38,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  *
  */
 @RunWith(SpringRunner.class)
-@WebMvcTest(OAuth2ResourceServerController.class)
-public class OAuth2ResourceServerControllerTests {
+@WebMvcTest(DemoResourceController.class)
+public class DemoResourceControllerTests {
 
 	@Autowired
 	MockMvc mockMvc;

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package sample;
+package sample.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -29,7 +29,7 @@ import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
  * @author Josh Cummings
  */
 @EnableWebSecurity
-public class OAuth2ResourceServerSecurityConfiguration extends WebSecurityConfigurerAdapter {
+public class OAuth2ResourceServerSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Value("${spring.security.oauth2.resourceserver.jwt.jwk-set-uri}") String jwkSetUri;
 
@@ -41,6 +41,7 @@ public class OAuth2ResourceServerSecurityConfiguration extends WebSecurityConfig
 				authorizeRequests
 					.antMatchers(HttpMethod.GET, "/message/**").hasAuthority("SCOPE_message:read")
 					.antMatchers(HttpMethod.POST, "/message/**").hasAuthority("SCOPE_message:write")
+					.antMatchers(HttpMethod.GET, "/user").hasAuthority("SCOPE_user:read")
 					.anyRequest().authenticated()
 			)
 			.oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt);

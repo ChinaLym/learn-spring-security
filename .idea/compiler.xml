@@ -14,6 +14,7 @@
         <module name="learn-security-demo-browser" />
         <module name="learn-security-starter-code" />
         <module name="oauth2-auth-sever" />
+        <module name="oauth2-client" />
         <module name="oauth2-resource-server" />
       </profile>
     </annotationProcessing>

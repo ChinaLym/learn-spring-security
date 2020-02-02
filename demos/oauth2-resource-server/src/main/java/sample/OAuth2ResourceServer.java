@@ -19,12 +19,14 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * @author Josh Cummings
+ * resourceServer
+ *
+ * @author lym
  */
 @SpringBootApplication
-public class OAuth2ResourceServerApplication {
+public class OAuth2ResourceServer {
 
 	public static void main(String[] args) {
-		SpringApplication.run(OAuth2ResourceServerApplication.class, args);
+		SpringApplication.run(OAuth2ResourceServer.class, args);
 	}
 }

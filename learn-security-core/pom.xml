@@ -3,8 +3,8 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>learn-spring-security</artifactId>
         <groupId>com.lym.demo</groupId>
+        <artifactId>learn-spring-security</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -12,7 +12,7 @@
     <artifactId>learn-security-core</artifactId>
 
     <!--
-    不依赖 spring-boot 时，依赖管理
+    不依赖 spring-boot 时，依赖管理，本脚手架优先对 spring boot web 项目提供支持
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -27,23 +27,17 @@
     -->
     <dependencies>
 
+        <!-- web 项目必备 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-
+        <!-- spring-security 项目必备，包含 spring-security-config、web 两个基础模块 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
-        <!--<dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-config</artifactId>
-        </dependency>-->
+
         <!-- todo 2019.1.23 spring 开发团队表示该 jar 将被废弃 -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
@@ -59,12 +53,13 @@
                 </exclusion>
             </exclusions>
         </dependency>
-
+        <!-- redis 缓存 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
 
+        <!-- db -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-jdbc</artifactId>
@@ -74,17 +69,17 @@
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
 
-        <!-- todo optional true -->
+        <!-- 自动配置提示 todo optional true -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>
         </dependency>
 
+        <!-- commons 工具包 -->
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
         </dependency>
-
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-collections4</artifactId>

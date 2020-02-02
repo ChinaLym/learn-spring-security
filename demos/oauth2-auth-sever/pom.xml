@@ -6,6 +6,7 @@
         <groupId>com.lym.demo</groupId>
         <artifactId>learn-spring-security</artifactId>
         <version>1.0-SNAPSHOT</version>
+        <relativePath>../../pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -26,10 +27,10 @@
             <artifactId>spring-security-oauth2-autoconfigure</artifactId>
         </dependency>
 
-        <dependency>
+        <!--<dependency>
             <groupId>javax.xml.bind</groupId>
             <artifactId>jaxb-api</artifactId>
-        </dependency>
+        </dependency>-->
         <!--mvn dependency:tree -Dverbose -Dincludes=com.nimbusds:nimbus-jose-jwt-->
         <dependency>
             <groupId>com.nimbusds</groupId>

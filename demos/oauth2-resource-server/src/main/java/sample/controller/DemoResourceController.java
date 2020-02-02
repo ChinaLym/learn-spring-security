@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package sample;
+package sample.controller;
 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.jwt.Jwt;
@@ -21,12 +21,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import sample.dto.DemoUser;
 
 /**
- * @author Josh Cummings
+ * @author lym
  */
 @RestController
-public class OAuth2ResourceServerController {
+public class DemoResourceController {
 
 	@GetMapping("/")
 	public String index(@AuthenticationPrincipal Jwt jwt) {
@@ -41,5 +42,10 @@ public class OAuth2ResourceServerController {
 	@PostMapping("/message")
 	public String createMessage(@RequestBody String message) {
 		return String.format("Message was created. Content: %s", message);
+	}
+
+	@GetMapping("/user")
+	public DemoUser createMessage() {
+		return new DemoUser();
 	}
 }

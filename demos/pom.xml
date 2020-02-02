@@ -21,6 +21,7 @@
         <module>oauth2-auth-sever</module>
         <!-- 资源服务器 -->
         <module>oauth2-resource-server</module>
+        <module>oauth2-client</module>
 
 
     </modules>
