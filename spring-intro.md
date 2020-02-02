@@ -4,7 +4,9 @@
 网上看到的一些教程大多是过时的，2019年之前的文章、教程大都跟不上最新的潮流，2019的文章和教程大部分又是转载的前几年的，因此需要看 spring 官方文档。
 由于 spring 官方看起来也需要时间，因此特作此说明，以减少各位技术leader和爱好者们在项目的技术选型中花费的时间。
 
-先上结论： 优先选择 Spring 官方推荐的 spring security 5.2.x +
+先上结论： 
+- 优先选择 Spring 官方推荐的 spring security 5.2.x +
+- 生产环境版本优先选择次最新版的最新的 SR，如当前最新是 H 版本，用于生产则最好使用 G 版本的最新一次 SR(官方标注GA的版本)
 
 我的猜测：Spring 官方未来会废弃一切与 security 相关的子项目并迁移至 Spring Security 中，
 未来想在 Spring 中寻找与 security 相关的部分，只需学习 spring security 即可。
