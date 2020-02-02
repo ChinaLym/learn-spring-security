@@ -15,7 +15,7 @@
 **OAuth2.0 流程，以及本脚手架采用的解决方案：**
 ![oauth2.0.png](img/oauth2.0.png)
 
-## spring 版本选型：（2020/2/1 最新的 GA 版本）
+## spring 版本选型：（2020/02/02 最新的 GA 版本）
 
 - spring：5.2.3.RELEASE
 - spring boot：2.2.4.RELEASE
