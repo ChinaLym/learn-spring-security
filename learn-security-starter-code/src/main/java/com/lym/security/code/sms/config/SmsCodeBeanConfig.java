@@ -1,5 +1,6 @@
 package com.lym.security.code.sms.config;
 
+import com.lym.security.authentication.config.SmsCodeAuthenticationSecurityConfig;
 import com.lym.security.code.config.ValidateCodeBeanConfig;
 import com.lym.security.code.sms.DefaultSmsCodeSender;
 import com.lym.security.code.sms.SmsCodeGenerator;
@@ -12,6 +13,10 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.lang.Nullable;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 /**
  * 短信验证码自动配置
@@ -22,7 +27,18 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @AutoConfigureBefore(ValidateCodeBeanConfig.class)
 @EnableConfigurationProperties(SmsCodeProperties.class)
-public class SmsCodeConfig {
+public class SmsCodeBeanConfig {
+
+    /**
+     * 手机短信验证码认证(短信验证码登录)配置
+     */
+    @Bean
+    public SmsCodeAuthenticationSecurityConfig smsCodeAuthenticationSecurityConfig(@Nullable AuthenticationSuccessHandler authenticationSuccessHandler,
+                                                                                   @Nullable AuthenticationFailureHandler authenticationFailureHandler,
+                                                                                   UserDetailsService userDetailsService) {
+
+        return new SmsCodeAuthenticationSecurityConfig(authenticationSuccessHandler, authenticationFailureHandler, userDetailsService);
+    }
 
     @Bean
     @ConditionalOnMissingBean(SmsCodeGenerator.class)

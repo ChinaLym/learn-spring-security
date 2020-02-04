@@ -30,10 +30,12 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserDetailsService userDetailsService;
 
-    @Autowired
+    /** 验证码相关配置（可选） */
+    @Autowired(required = false)
     private ValidateCodeSecurityConfig validateCodeSecurityConfig;
 
-    @Autowired
+    /** 短信验证码认证（可选） */
+    @Autowired(required = false)
     private SmsCodeAuthenticationSecurityConfig smsCodeAuthenticationSecurityConfig;
 
     @Autowired
@@ -54,14 +56,20 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-
+        // @formatter:off
         formAuthenticationSecurityConfig.configure(http);
 
         //apply 方法：<C extends SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity>> C apply(C configurer)
 
-        http.apply(validateCodeSecurityConfig).and()
-                .apply(smsCodeAuthenticationSecurityConfig).and()
+        if (validateCodeSecurityConfig != null){
+            http.apply(validateCodeSecurityConfig);
+        }
 
+        if (smsCodeAuthenticationSecurityConfig != null){
+            http.apply(smsCodeAuthenticationSecurityConfig);
+        }
+
+        http
                 // 记住我配置，采用 spring security 的默认实现
                 // 如果想在'记住我'登录时记录日志，可以注册一个InteractiveAuthenticationSuccessEvent事件的监听器
                 .rememberMe()
@@ -129,7 +137,7 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable();
 
         //authorizeConfigManager.config(http.authorizeRequests());
-
+        // @formatter:on
     }
 
 }

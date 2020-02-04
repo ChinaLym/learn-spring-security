@@ -16,8 +16,8 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * 支持短信验证码认证方式
- *
- * 参考 {@link org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter}
+ * 参考了 {@link org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter}
+ * 该 url 应该加载验证码过滤器之后，被其保护，否则会产生无条件登录现象。
  *
  * @author lym
  */

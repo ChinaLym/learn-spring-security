@@ -31,8 +31,27 @@ import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 @EnableWebSecurity
 public class OAuth2ResourceServerSecurityConfig extends WebSecurityConfigurerAdapter {
 
-	@Value("${spring.security.oauth2.resourceserver.jwt.jwk-set-uri}") String jwkSetUri;
+	// @formatter:off
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
+		http
+				//.mvcMatcher("/messages/**")
+					.authorizeRequests()
+						//.mvcMatchers("/messages/**").access("hasAuthority('SCOPE_message.read')")
+						.antMatchers(HttpMethod.GET, "/message/**").hasAuthority("SCOPE_message:read")
+						.antMatchers(HttpMethod.POST, "/message/**").hasAuthority("SCOPE_message:write")
+						.antMatchers(HttpMethod.GET, "/user").hasAuthority("SCOPE_user:read")
+						.antMatchers("/ping").permitAll()
+				.anyRequest().authenticated()
 
+				.and()
+				.oauth2ResourceServer()
+				.jwt();
+	}
+	// @formatter:on
+
+	@Value("${spring.security.oauth2.resourceserver.jwt.jwk-set-uri}") String jwkSetUri;
+/*
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		// @formatter:off
@@ -51,5 +70,5 @@ public class OAuth2ResourceServerSecurityConfig extends WebSecurityConfigurerAda
 	@Bean
 	JwtDecoder jwtDecoder() {
 		return NimbusJwtDecoder.withJwkSetUri(this.jwkSetUri).build();
-	}
+	}*/
 }

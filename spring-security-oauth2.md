@@ -4,6 +4,8 @@
 
 [oauth2.0 协议文档](https://tools.ietf.org/html/rfc6749)
 
+[如何与 spring boot 结合](https://spring.io/guides/topicals/spring-security-architecture/)
+
 ## spring security 介绍
 
 一句话介绍：spring security 原理其实是内置了多个过滤器，在请求到达时先经过 spring security 的 filter，如果 filter 允许访问则通过。
@@ -101,7 +103,26 @@
     - ExceptionTranslationFilter
     - FilterSecurityInterceptor
 
-spring security oauth2 的主要内容在 12 章
+## 
+```java
+@RequestMapping("/foo")
+public String foo(@AuthenticationPrincipal User user) {
+  ... // do stuff with user
+}
+```
+在controller的requestMapping方法中，参数加 `@AuthenticationPrincipal` 相当于 `SecurityContextHolder.getContext().getAuthentication().getPrincipal();`
+等效于：
+```java
+@RequestMapping("/foo")
+public String foo(Principal principal) {
+  Authentication authentication = (Authentication) principal;
+  User = (User) authentication.getPrincipal();
+  ... // do stuff with user
+}
+```
+
+## spring security oauth2 
+[官方文档](https://docs.spring.io/spring-security/site/docs/5.2.1.RELEASE/reference/htmlsingle/#oauth2)关于 oauth2 的主要内容在 12 章
 
 - 首先给了 [demo 的链接地址](https://github.com/spring-projects/spring-security/tree/5.2.1.RELEASE/samples/boot/oauth2login)
 

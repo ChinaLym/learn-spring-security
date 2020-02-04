@@ -16,6 +16,7 @@
 package sample.controller;
 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,11 +24,18 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import sample.dto.DemoUser;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+import java.util.UUID;
+
 /**
  * @author lym
  */
 @RestController
 public class DemoResourceController {
+
+	Random r = new Random();
 
 	@GetMapping("/")
 	public String index(@AuthenticationPrincipal Jwt jwt) {
@@ -36,7 +44,17 @@ public class DemoResourceController {
 
 	@GetMapping("/message")
 	public String message() {
-		return "secret message";
+		return "Message";
+	}
+
+	@GetMapping("/messages")
+	public List<String> messages() {
+		int size = r.nextInt(10) + 5;
+		List<String> list = new ArrayList<>(size);
+		for (int i = 0; i < size; i++) {
+			list.add("message " + i + " : " + UUID.randomUUID());
+		}
+		return list;
 	}
 
 	@PostMapping("/message")
@@ -44,8 +62,17 @@ public class DemoResourceController {
 		return String.format("Message was created. Content: %s", message);
 	}
 
+	/** 测试用户信息是否能传递拿到 */
 	@GetMapping("/user")
-	public DemoUser createMessage() {
+	public DemoUser createMessage(@AuthenticationPrincipal User user) {
+		System.out.println(user);
 		return new DemoUser();
 	}
+
+	/** 不登录也能访问 */
+	@GetMapping("/ping")
+	public String ping() {
+		return "PONG";
+	}
+
 }

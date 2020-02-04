@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.lym.security.app.config;
 
 import com.lym.security.app.properties.OAuth2Properties;

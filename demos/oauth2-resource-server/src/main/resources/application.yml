@@ -1,6 +1,14 @@
 server:
   port: 8000
 
+logging:
+  level:
+    root: INFO
+    org.springframework.web: INFO
+    org.springframework.security: INFO
+    org.springframework.security.oauth2: INFO
+#    org.springframework.boot.autoconfigure: DEBUG
+
 spring:
   security:
     oauth2:
@@ -8,3 +16,8 @@ spring:
         jwt:
           #jwk-set-uri: ${mockwebserver.url}/.well-known/jwks.json
           jwk-set-uri: http://authServer.com:8081/.well-known/jwks.json
+        user-info-uri: http://${auth.host:localhost}:${auth.port:8081}/user # 这里是授权服务的地址，即auth-service
+        prefer-token-info: false
+auth:
+  host:authServer.com
+  port:8081

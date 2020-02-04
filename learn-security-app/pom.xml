@@ -22,13 +22,33 @@
         <dependency>
             <groupId>com.lym.demo</groupId>
             <artifactId>learn-security-starter-code</artifactId>
+            <optional>true</optional>
         </dependency>
 
 
+        <!-- oauth2 认证服务器相关依赖 -->
+        <dependency>
+            <groupId>org.springframework.security.oauth.boot</groupId>
+            <artifactId>spring-security-oauth2-autoconfigure</artifactId>
+        </dependency>
+        <!-- oauth2 资源服务器相关依赖 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
         </dependency>
+        <!-- oauth2 客户端 相关依赖 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-oauth2-client</artifactId>
+        </dependency>
+
+        <!-- properties 配置项提示 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
+
 
     </dependencies>
 

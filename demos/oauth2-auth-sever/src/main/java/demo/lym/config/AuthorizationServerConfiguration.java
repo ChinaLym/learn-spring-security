@@ -88,6 +88,13 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
                     .authorizedGrantTypes("authorization_code", "password", "client_credentials", "implicit", "refresh_token")
                     .redirectUris("http://localhost:8080/login/oauth2/code/demo","http://127.0.0.1:8080/login/oauth2/code/demo")
                     .scopes("message:read", "message:write", "user:read")
+					.accessTokenValiditySeconds(600_000_000)
+				.and()
+					.withClient("messaging-client")
+					.secret("secret")
+                    .authorizedGrantTypes("authorization_code", "password", "client_credentials", "implicit", "refresh_token")
+                    .redirectUris("http://localhost:8080/authorized","http://127.0.0.1:8080/authorized")
+                    .scopes("message.read", "message.write")
 					.accessTokenValiditySeconds(600_000_000);
 		// @formatter:on
 	}

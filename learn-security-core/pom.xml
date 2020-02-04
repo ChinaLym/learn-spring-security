@@ -39,7 +39,7 @@
         </dependency>
 
         <!-- todo 2019.1.23 spring 开发团队表示该 jar 将被废弃 -->
-        <dependency>
+        <!--<dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-oauth2</artifactId>
             <exclusions>
@@ -52,14 +52,14 @@
                     <artifactId>jackson-mapper-asl</artifactId>
                 </exclusion>
             </exclusions>
-        </dependency>
+        </dependency>-->
         <!-- redis 缓存 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
 
-        <!-- db -->
+        <!-- db：token|remember me-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-jdbc</artifactId>
@@ -69,10 +69,11 @@
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
 
-        <!-- 自动配置提示 todo optional true -->
+        <!-- properties 配置项提示 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
         </dependency>
 
         <!-- commons 工具包 -->

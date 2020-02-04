@@ -16,6 +16,14 @@
             <groupId>com.lym.demo</groupId>
             <artifactId>learn-security-code</artifactId>
         </dependency>
+
+        <!-- properties 配置项提示 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
+
     </dependencies>
 
 </project>

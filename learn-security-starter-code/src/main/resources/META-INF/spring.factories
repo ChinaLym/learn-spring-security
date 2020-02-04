@@ -1,4 +1,4 @@
 # Auto Configuration
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  com.lym.security.code.img.config.ImageCodeConfig,\
-  com.lym.security.code.sms.config.SmsCodeConfig
+  com.lym.security.code.img.config.ImageCodeBeanConfig,\
+  com.lym.security.code.sms.config.SmsCodeBeanConfig

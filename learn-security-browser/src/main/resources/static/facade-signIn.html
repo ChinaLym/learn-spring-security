@@ -6,8 +6,9 @@
 </head>
 <body>
 	<h2>统一认证页面</h2>
-	<!--如何修改该页面？1. 在项目目录工程的静态资源路径中添加名称为 facade-signIn.html 的；2. 通过 lym.security.browser.signInPage=xxx.html，然后在资源路径中添加 xxx.html -->
+	<small>（如何自定义登录页面？1. 在项目目录工程的静态资源路径中添加名称为 facade-signIn.html 的；2. 通过 lym.security.browser.signInPage=xxx.html，然后在资源路径中添加 xxx.html）</small>
 	<h3>用户名密码登录</h3>
+	<small>（默认从UserService中取，demo中的实现：用户名不限制，密码为 password）</small>
 	<form action="/authentication/form" method="post">
 		<table>
 			<tr>
@@ -16,13 +17,13 @@
 			</tr>
 			<tr>
 				<td>密码:</td>
-				<td><input type="password" name="password"></td>
+				<td><input type="password" name="password" value="password"></td>
 			</tr>
 			<tr>
 				<td>图形验证码:</td>
 				<td>
 					<input type="text" name="imageCode">
-					<img src="/code?type=imageCode">
+					<img src="/code?type=imageCode"><small>(默认可空，pom.xml 引入 `learn-security-starter-code` 后，则表单登录必须填正确的验证码才能成功登录。并支持短信验证码登录)</small>
 				</td>
 			</tr>
 			<tr>

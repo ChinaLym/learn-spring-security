@@ -1,7 +1,7 @@
 package com.lym.security.browser.handler;
 
 import com.lym.security.ResponseUtil;
-import io.micrometer.core.instrument.util.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;

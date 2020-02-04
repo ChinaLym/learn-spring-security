@@ -2,8 +2,8 @@ package com.lym.security.code.controller;
 
 import com.lym.security.code.ValidateCodeProcessorHolder;
 import com.lym.security.code.consts.ValidateCodeConsts;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,7 +16,8 @@ import javax.servlet.http.HttpServletResponse;
  * 验证码 Controller
  * @author lym
  */
-//@ConditionalOnProperty(value = ValidateCodeConsts.CONFIG_PREFIX + ".default-controller.enable", havingValue = "true", matchIfMissing = true)
+@ConditionalOnBean(ValidateCodeProcessorHolder.class)
+@ConditionalOnProperty(value = ValidateCodeConsts.CONFIG_PREFIX + ".default-controller.enable", havingValue = "true", matchIfMissing = true)
 @RestController
 public class ValidateCodeController {
 

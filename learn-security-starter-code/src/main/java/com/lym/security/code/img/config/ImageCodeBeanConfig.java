@@ -21,7 +21,7 @@ import org.springframework.lang.Nullable;
 @Configuration
 @AutoConfigureBefore(ValidateCodeBeanConfig.class)
 @EnableConfigurationProperties(ImageCodeProperties.class)
-public class ImageCodeConfig {
+public class ImageCodeBeanConfig {
 
     @Bean
     @ConditionalOnMissingBean(ImageCodeGenerator.class)

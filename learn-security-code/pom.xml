@@ -17,10 +17,13 @@
             <artifactId>learn-security-core</artifactId>
         </dependency>
 
+        <!-- properties 配置项提示 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
         </dependency>
+
 
     </dependencies>
 

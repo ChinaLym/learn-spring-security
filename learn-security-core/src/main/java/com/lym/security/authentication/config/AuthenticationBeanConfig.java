@@ -47,17 +47,5 @@ public class AuthenticationBeanConfig {
 																	 @Nullable AuthenticationFailureHandler authenticationFailureHandler) {
 		return new FormAuthenticationSecurityConfig(authenticationSuccessHandler, authenticationFailureHandler);
 	}
-	/**
-	 * 手机短信验证码认证(短信验证码登录)配置
-	 */
-	@Bean
-	public SmsCodeAuthenticationSecurityConfig smsCodeAuthenticationSecurityConfig(@Nullable AuthenticationSuccessHandler authenticationSuccessHandler,
-																				   @Nullable AuthenticationFailureHandler authenticationFailureHandler,
-																				   UserDetailsService userDetailsService) {
-
-		return new SmsCodeAuthenticationSecurityConfig(authenticationSuccessHandler, authenticationFailureHandler, userDetailsService);
-	}
-
-
 
 }

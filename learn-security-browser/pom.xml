@@ -19,19 +19,27 @@
         </dependency>
         <dependency>
             <groupId>com.lym.demo</groupId>
-            <artifactId>learn-security-starter-code</artifactId>
+            <artifactId>learn-security-code</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>com.lym.demo</groupId>
+            <artifactId>learn-security-starter-code</artifactId>
+            <optional>true</optional>
+        </dependency>
 
         <!-- 用于 token 缓存 -->
         <!--<dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>-->
+
+        <!-- properties 配置项提示 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
         </dependency>
+
 
     </dependencies>
 
