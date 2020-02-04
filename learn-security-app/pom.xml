@@ -25,6 +25,21 @@
             <optional>true</optional>
         </dependency>
 
+        <!-- todo 2019.1.23 spring 开发团队表示该 jar 将被废弃 -->
+        <!--<dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-oauth2</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.codehaus.jackson</groupId>
+                    <artifactId>jackson-core-asl</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.codehaus.jackson</groupId>
+                    <artifactId>jackson-mapper-asl</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>-->
 
         <!-- oauth2 认证服务器相关依赖 -->
         <dependency>

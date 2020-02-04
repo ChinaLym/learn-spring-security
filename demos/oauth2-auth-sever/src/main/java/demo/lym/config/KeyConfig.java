@@ -2,12 +2,20 @@ package demo.lym.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.oauth2.provider.ClientDetails;
+import org.springframework.security.oauth2.provider.ClientDetailsService;
+import org.springframework.security.oauth2.provider.client.BaseClientDetails;
+import org.springframework.security.oauth2.provider.client.InMemoryClientDetailsService;
 
 import java.math.BigInteger;
 import java.security.KeyFactory;
 import java.security.KeyPair;
 import java.security.spec.RSAPrivateKeySpec;
 import java.security.spec.RSAPublicKeySpec;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * JWK 配置
@@ -18,6 +26,24 @@ import java.security.spec.RSAPublicKeySpec;
  */
 @Configuration
 class KeyConfig {
+
+	public ClientDetailsService clientDetailsService() {
+		InMemoryClientDetailsService memoryClientDetailsService = new InMemoryClientDetailsService();
+		Map<String, ? extends ClientDetails> clientDetails = new HashMap<>();
+		BaseClientDetails demo;
+
+		demo = new BaseClientDetails();
+		demo.setClientId("demo-client-id");
+		demo.setClientSecret("secret");
+		demo.setAuthorizedGrantTypes(List.of("authorization_code", "password", "client_credentials", "implicit", "refresh_token"));
+		demo.setRegisteredRedirectUri(Set.of("http://localhost:8080/login/oauth2/code/demo","http://127.0.0.1:8080/login/oauth2/code/demo"));
+		demo.setScope(List.of("message:read", "message:write", "user:read"));
+		demo.setAccessTokenValiditySeconds(600_000_000);
+
+		memoryClientDetailsService.setClientDetailsStore(clientDetails);
+		return memoryClientDetailsService;
+	}
+
 	@Bean
     KeyPair keyPair() {
 		try {

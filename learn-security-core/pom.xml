@@ -38,21 +38,6 @@
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
 
-        <!-- todo 2019.1.23 spring 开发团队表示该 jar 将被废弃 -->
-        <!--<dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-oauth2</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.codehaus.jackson</groupId>
-                    <artifactId>jackson-core-asl</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.codehaus.jackson</groupId>
-                    <artifactId>jackson-mapper-asl</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>-->
         <!-- redis 缓存 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -63,10 +48,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-jdbc</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
         </dependency>
 
         <!-- properties 配置项提示 -->

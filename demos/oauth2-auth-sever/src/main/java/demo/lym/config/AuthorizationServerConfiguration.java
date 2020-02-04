@@ -19,16 +19,17 @@ import org.springframework.security.oauth2.provider.token.store.InMemoryTokenSto
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 
+import javax.sql.DataSource;
 import java.security.KeyPair;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
  * 旧授权服务器（spring-security-oauth2）的一个实例，它使用一个单独的、不旋转的密钥并公开一个JWK端点。
- *
+ * <p>
  * 更多详情：
  * <a target="_blank" href="https://docs.spring.io/spring-security-oauth2-boot/docs/current-SNAPSHOT/reference/htmlsingle/">
- * 	Spring Security OAuth Autoconfig's documentation
+ * Spring Security OAuth Autoconfig's documentation
  * </a>
  *
  * @author Josh Cummings
@@ -38,48 +39,54 @@ import java.util.Map;
 @Configuration
 public class AuthorizationServerConfiguration extends AuthorizationServerConfigurerAdapter {
 
-	AuthenticationManager authenticationManager;
-	KeyPair keyPair;
-	boolean jwtEnabled;
+    private AuthenticationManager authenticationManager;
+    private KeyPair keyPair;
+    private boolean jwtEnabled;
+    private DataSource dataSource;
 
-	public AuthorizationServerConfiguration(
-			AuthenticationConfiguration authenticationConfiguration,
-			KeyPair keyPair,
-			@Value("${security.oauth2.authorizationserver.jwt.enabled:true}") boolean jwtEnabled) throws Exception {
+    public AuthorizationServerConfiguration(
+            AuthenticationConfiguration authenticationConfiguration,
+            KeyPair keyPair,
+            @Value("${security.oauth2.authorizationserver.jwt.enabled:true}") boolean jwtEnabled,
+            DataSource dataSource) throws Exception {
 
-		this.authenticationManager = authenticationConfiguration.getAuthenticationManager();
-		this.keyPair = keyPair;
-		this.jwtEnabled = jwtEnabled;
-	}
+        this.authenticationManager = authenticationConfiguration.getAuthenticationManager();
+        this.keyPair = keyPair;
+        this.jwtEnabled = jwtEnabled;
+        this.dataSource = dataSource;
+    }
 
-	@Override
-	public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
-		security.tokenKeyAccess("permitAll()")
-				.checkTokenAccess("isAuthenticated()");
-	}
+    @Override
+    public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
+        security.tokenKeyAccess("permitAll()")
+                .checkTokenAccess("isAuthenticated()");
+    }
 
-	@Override
-	public void configure(ClientDetailsServiceConfigurer clients)
-			throws Exception {
-		// @formatter:off
+    @Override
+    public void configure(ClientDetailsServiceConfigurer clients)
+            throws Exception {
 
-		// 创建四个 默认的 clientDetail
+        clients.jdbc(dataSource);
+
+        // @formatter:off
+        /*
+		// 创建默认的 clientDetail
 		clients.inMemory()
 				.withClient("reader")
-					.authorizedGrantTypes("password")
 					.secret("secret")
+					.authorizedGrantTypes("password")
 					.scopes("message:read")
 					.accessTokenValiditySeconds(600_000_000)
 				.and()
 					.withClient("writer")
-					.authorizedGrantTypes("password")
 					.secret("secret")
+					.authorizedGrantTypes("password")
 					.scopes("message:write")
 					.accessTokenValiditySeconds(600_000_000)
 				.and()
 					.withClient("noscopes")
-					.authorizedGrantTypes("password")
 					.secret("secret")
+					.authorizedGrantTypes("password")
 					.scopes("none")
 					.accessTokenValiditySeconds(600_000_000)
 				.and()
@@ -95,13 +102,13 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
                     .authorizedGrantTypes("authorization_code", "password", "client_credentials", "implicit", "refresh_token")
                     .redirectUris("http://localhost:8080/authorized","http://127.0.0.1:8080/authorized")
                     .scopes("message.read", "message.write")
-					.accessTokenValiditySeconds(600_000_000);
+					.accessTokenValiditySeconds(600_000_000);*/
 		// @formatter:on
-	}
+    }
 
-	@Override
-	public void configure(AuthorizationServerEndpointsConfigurer endpoints) {
-		// @formatter:off
+    @Override
+    public void configure(AuthorizationServerEndpointsConfigurer endpoints) {
+        // @formatter:off
 		endpoints
 				.authenticationManager(this.authenticationManager)
 				.tokenStore(tokenStore());
@@ -111,44 +118,44 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
 					.accessTokenConverter(accessTokenConverter());
 		}
 		// @formatter:on
-	}
-
-	@Bean
-	public TokenStore tokenStore() {
-		if (this.jwtEnabled) {
-			return new JwtTokenStore(accessTokenConverter());
-		} else {
-			return new InMemoryTokenStore();
-		}
-	}
-
-	@Bean
-	public JwtAccessTokenConverter accessTokenConverter() {
-		JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
-		converter.setKeyPair(this.keyPair);
-
-		DefaultAccessTokenConverter accessTokenConverter = new DefaultAccessTokenConverter();
-		accessTokenConverter.setUserTokenConverter(new SubjectAttributeUserTokenConverter());
-		converter.setAccessTokenConverter(accessTokenConverter);
-
-		return converter;
-	}
-
-}
+    }
 
 
-/**
- * 传统授权服务器不支持用户参数的自定义名称，因此我们需要扩展默认值。默认情况下，它使用属性{@code user_name}，不过最好遵循 jwt 规范
- * <a target="_blank" href="https://tools.ietf.org/html/rfc7519">JWT Specification</a>.
- */
-class SubjectAttributeUserTokenConverter extends DefaultUserAuthenticationConverter {
-	@Override
-	public Map<String, ?> convertUserAuthentication(Authentication authentication) {
-		Map<String, Object> response = new LinkedHashMap<>();
-		response.put("sub", authentication.getName());
-		if (authentication.getAuthorities() != null && !authentication.getAuthorities().isEmpty()) {
-			response.put(AUTHORITIES, AuthorityUtils.authorityListToSet(authentication.getAuthorities()));
-		}
-		return response;
-	}
+    @Bean
+    public TokenStore tokenStore() {
+        if (this.jwtEnabled) {
+            return new JwtTokenStore(accessTokenConverter());
+        } else {
+            return new InMemoryTokenStore();
+        }
+    }
+
+    @Bean
+    public JwtAccessTokenConverter accessTokenConverter() {
+        JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
+        converter.setKeyPair(this.keyPair);
+
+        DefaultAccessTokenConverter accessTokenConverter = new DefaultAccessTokenConverter();
+        accessTokenConverter.setUserTokenConverter(new SubjectAttributeUserTokenConverter());
+        converter.setAccessTokenConverter(accessTokenConverter);
+
+        return converter;
+    }
+
+
+    /**
+     * 传统授权服务器不支持用户参数的自定义名称，因此我们需要扩展默认值。默认情况下，它使用属性{@code user_name}，不过最好遵循 jwt 规范
+     * <a target="_blank" href="https://tools.ietf.org/html/rfc7519">JWT Specification</a>.
+     */
+    class SubjectAttributeUserTokenConverter extends DefaultUserAuthenticationConverter {
+        @Override
+        public Map<String, ?> convertUserAuthentication(Authentication authentication) {
+            Map<String, Object> response = new LinkedHashMap<>();
+            response.put("sub", authentication.getName());
+            if (authentication.getAuthorities() != null && !authentication.getAuthorities().isEmpty()) {
+                response.put(AUTHORITIES, AuthorityUtils.authorityListToSet(authentication.getAuthorities()));
+            }
+            return response;
+        }
+    }
 }

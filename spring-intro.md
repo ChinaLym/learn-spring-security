@@ -11,9 +11,11 @@
 我的猜测：Spring 官方未来会废弃一切与 security 相关的子项目并迁移至 Spring Security 中，
 未来想在 Spring 中寻找与 security 相关的部分，只需学习 spring security 即可。
 
-不要再使用 `spring-security-xxx`、`spring-social`等
+- 在 spring security5.3.x 前可以选择使用 `spring-security-oauth`（一年内不会被淘汰，未来终将被 spring security5.x取代）
 
-不推荐使用 `spring-cloud-starter-oauth2`、`spring-cloud-starter-security`（有计划被废弃）
+- 不要再使用 `spring-security-xxx`、`spring-social`等
+
+- 不推荐使用 `spring-cloud-starter-oauth2`、`spring-cloud-starter-security`（有计划被废弃）
 
 ## spring-cloud-security
 
@@ -51,7 +53,18 @@
 - [spring security oauth 部分文档](https://docs.spring.io/spring-security/site/docs/current/reference/htmlsingle/#oauth2login)
 - 该项目的最后一次提交是2019年11月左右
 - [如何从 spring-security-oauth 2.x 迁移到 spring security 5.2.x](https://github.com/spring-projects/spring-security/wiki/OAuth-2.0-Migration-Guide)
-
+- [Spring Security OAuth 2.0路线图](https://spring.io/blog/2019/11/14/spring-security-oauth-2-0-roadmap-update) 表示
+    Spring Security OAuth 已经进入维护模式，未来会全部迁移至 spring security 5.x
+    其2.3版本将于2020年3月停止开发，
+    当spring security与Spring Security OAuth的功能一致后，停止2.4.x版本的开发，
+    因此推荐使用spring security5.2+
+- [spring 下一代 oauth2](https://spring.io/blog/2018/01/30/next-generation-oauth-2-0-support-with-spring-security)    
+- [spring 中与 oauth 相关项目功能一览 ](https://github.com/spring-projects/spring-security/wiki/OAuth-2.0-Features-Matrix)
+- [相关 issue](https://github.com/spring-projects/spring-security/issues/6733)
+- 认证服务器迁移？spring-security-oauth 提供了认证服务器的能力，而 spring security5.2.x中没有对应的支持，官方表示至少5.3.x会支持认证服务器
+- spring security 5.3.x 大概在2020年中旬发布
+- [github上对认证服务器的支持讨论](https://github.com/spring-projects/spring-security/issues/6320#issuecomment-564151705)
+    
 该项目提供的能力逐渐由 spring-security 下的 spring-security-oauth-xxx 接管
 
 ### spring-security-saml

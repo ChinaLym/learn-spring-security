@@ -38,6 +38,7 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired(required = false)
     private SmsCodeAuthenticationSecurityConfig smsCodeAuthenticationSecurityConfig;
 
+    /** 表单登录 */
     @Autowired
     private FormAuthenticationSecurityConfig formAuthenticationSecurityConfig;
 

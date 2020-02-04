@@ -16,12 +16,10 @@
 package sample.controller;
 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.oauth2.jwt.Jwt;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import sample.dto.DemoUser;
 
 import java.util.ArrayList;
@@ -65,6 +63,7 @@ public class DemoResourceController {
 	/** 测试用户信息是否能传递拿到 */
 	@GetMapping("/user")
 	public DemoUser createMessage(@AuthenticationPrincipal User user) {
+		SecurityContextHolder.getContext().getAuthentication();
 		System.out.println(user);
 		return new DemoUser();
 	}

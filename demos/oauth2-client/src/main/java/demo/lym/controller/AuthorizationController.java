@@ -15,12 +15,14 @@
  */
 package demo.lym.controller;
 
+import demo.lym.dto.DemoUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.List;
@@ -40,6 +42,18 @@ public class AuthorizationController {
 	@Autowired
 	private WebClient webClient;
 
+
+	/** 测试使用 webClient 调用资源服务器 */
+	@GetMapping(value = "/testwebclient")
+	@ResponseBody
+	public DemoUser testWebClient() {
+		return webClient.get()
+				.uri("http://127.0.0.1:8000/user")
+				.attributes(clientRegistrationId("demo"))
+				.retrieve()
+				.bodyToMono(DemoUser.class)
+				.block();
+	}
 
 	/** /authorize?grant_type=authorization_code */
 	@GetMapping(value = "/authorize", params = "grant_type=authorization_code")

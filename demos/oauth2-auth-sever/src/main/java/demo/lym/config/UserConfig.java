@@ -8,7 +8,16 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.provider.ClientDetails;
+import org.springframework.security.oauth2.provider.ClientDetailsService;
+import org.springframework.security.oauth2.provider.client.BaseClientDetails;
+import org.springframework.security.oauth2.provider.client.InMemoryClientDetailsService;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * 配置本系统用户，以通过这些用户完成认证。
