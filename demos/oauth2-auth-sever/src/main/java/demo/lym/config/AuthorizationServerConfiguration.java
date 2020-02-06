@@ -1,8 +1,11 @@
 package demo.lym.config;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.lang.Nullable;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.core.Authentication;
@@ -16,6 +19,7 @@ import org.springframework.security.oauth2.provider.token.DefaultAccessTokenConv
 import org.springframework.security.oauth2.provider.token.DefaultUserAuthenticationConverter;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.InMemoryTokenStore;
+import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 
@@ -39,6 +43,8 @@ import java.util.Map;
 @Configuration
 public class AuthorizationServerConfiguration extends AuthorizationServerConfigurerAdapter {
 
+    private final Logger log = LoggerFactory.getLogger(getClass());
+
     private AuthenticationManager authenticationManager;
     private KeyPair keyPair;
     private boolean jwtEnabled;
@@ -47,8 +53,9 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
     public AuthorizationServerConfiguration(
             AuthenticationConfiguration authenticationConfiguration,
             KeyPair keyPair,
+            /** 默认使用 jwt */
             @Value("${security.oauth2.authorizationserver.jwt.enabled:true}") boolean jwtEnabled,
-            DataSource dataSource) throws Exception {
+            @Nullable DataSource dataSource) throws Exception {
 
         this.authenticationManager = authenticationConfiguration.getAuthenticationManager();
         this.keyPair = keyPair;
@@ -93,14 +100,14 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
 					.withClient("demo-client-id")
 					.secret("secret")
                     .authorizedGrantTypes("authorization_code", "password", "client_credentials", "implicit", "refresh_token")
-                    .redirectUris("http://localhost:8080/login/oauth2/code/demo","http://127.0.0.1:8080/login/oauth2/code/demo")
+                    .redirectUris("http://demo.com/login/oauth2/code/demo","http://localhost/login/oauth2/code/demo","http://127.0.0.1/login/oauth2/code/demo")
                     .scopes("message:read", "message:write", "user:read")
 					.accessTokenValiditySeconds(600_000_000)
 				.and()
 					.withClient("messaging-client")
 					.secret("secret")
                     .authorizedGrantTypes("authorization_code", "password", "client_credentials", "implicit", "refresh_token")
-                    .redirectUris("http://localhost:8080/authorized","http://127.0.0.1:8080/authorized")
+                    .redirectUris("http://demo.com/authorized","http://localhost/authorized","http://127.0.0.1/authorized")
                     .scopes("message.read", "message.write")
 					.accessTokenValiditySeconds(600_000_000);*/
 		// @formatter:on
@@ -123,11 +130,20 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
 
     @Bean
     public TokenStore tokenStore() {
+        TokenStore tokenStore;
+        String type;
         if (this.jwtEnabled) {
-            return new JwtTokenStore(accessTokenConverter());
+            tokenStore = new JwtTokenStore(accessTokenConverter());
+            type = "jwt";
+        } else if(dataSource != null){
+            tokenStore = new JdbcTokenStore(dataSource);
+            type = "jdbc";
         } else {
-            return new InMemoryTokenStore();
+            tokenStore = new InMemoryTokenStore();
+            type = "inMemory";
         }
+        log.info("tokenStore type: " + type);
+        return tokenStore;
     }
 
     @Bean
@@ -141,6 +157,7 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
 
         return converter;
     }
+
 
 
     /**

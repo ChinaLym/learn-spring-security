@@ -121,7 +121,10 @@ public String foo(Principal principal) {
 }
 ```
 
-## spring security oauth2 
+## spring security oauth2
+
+### 文档助读
+ 
 [官方文档](https://docs.spring.io/spring-security/site/docs/5.2.1.RELEASE/reference/htmlsingle/#oauth2)关于 oauth2 的主要内容在 12 章
 
 - 首先给了 [demo 的链接地址](https://github.com/spring-projects/spring-security/tree/5.2.1.RELEASE/samples/boot/oauth2login)
@@ -142,4 +145,12 @@ public String foo(Principal principal) {
 
 - 高级配置
     - 使用个性的配置替换 `.oauth2Login(withDefaults())` 中的 `withDefaults()` 方法
+    
+### JWT 知识补充
+
+[JWT 知识补充](jwt.md)
+
+### 基础表格
+
+[spring security oauth2 数据库表解读](http://andaily.com/spring-oauth-server/db_table_description.html)
     

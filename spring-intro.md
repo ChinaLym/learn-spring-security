@@ -65,7 +65,15 @@
 - spring security 5.3.x 大概在2020年中旬发布
 - [github上对认证服务器的支持讨论](https://github.com/spring-projects/spring-security/issues/6320#issuecomment-564151705)
     
-该项目提供的能力逐渐由 spring-security 下的 spring-security-oauth-xxx 接管
+该项目提供的能力逐渐由 spring-security 接管，并置于`spring-security-oauth-xxx`模块中
+
+如果想使用该项目，在spring boot 中比较合适的jar如下：
+```xml
+        <dependency>
+            <groupId>org.springframework.security.oauth.boot</groupId>
+            <artifactId>spring-security-oauth2-autoconfigure</artifactId>
+        </dependency>
+```
 
 ### spring-security-saml
 该项目是 saml 协议的一个实现
@@ -84,9 +92,18 @@
 
 ## spring-social
 github上有一些基于 [spring-social](https://projects.spring.io/spring-social/) 实现的第三方登录 sdk，为什么现在废弃了？
+- `spring-social` 是与 `spring-security-oauth` 协同使用的模块，提供了第三方登录，作为 oauth client 的角色
 - 2018.7.3 [spring-social官方声明](https://spring.io/blog/2018/07/03/spring-social-end-of-life-announcement)
     - Spring Social所提供的许多功能（spring social维护者认为是Spring Social最有价值的部分）现在已成为Spring Security的一部分
 - 2019年7月3日停止维护支持。
+
+## spring-security 5.2.x+
+`spring-security 5` 开始将以上部分整合，5.2版本提供了部分 oauth2 支持，以上涉及的项目被逐渐合并至 spring security 5.2 以及以后的版本中，
+`spring-security 5.2.x` 并不能完全替代以上的项目提供的功能，只是将上面中部分主要的功能先集成进来
+
+预计在未来 `spring-security 5.3.x`(5.3第一个版本大约在2020.3) 之后的版本，将可以只使用 `spring-security`，不需要在学习以上的其他的部分
+
+
 
 
 # spring-security 入门

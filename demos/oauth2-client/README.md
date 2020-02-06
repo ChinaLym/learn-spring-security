@@ -8,7 +8,7 @@
 
 演示如何提供一个 oauth2.0 的认证服务器
 
-启动后直接访问 http://localhost:8080/
+启动后直接访问 `http://demo.com` 或 `http://localhost` 或 `http://127.0.0.1`
 
 选择：demos里的 oauth2-auth-server
 

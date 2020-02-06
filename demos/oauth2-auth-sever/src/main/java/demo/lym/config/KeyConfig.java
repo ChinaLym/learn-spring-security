@@ -20,29 +20,12 @@ import java.util.Set;
 /**
  * JWK 配置
  *
- * 注意：授权服务器通常具有密钥轮换策略，并且密钥不会硬编码到应用程序代码中。
+ * 注意：授权服务器通常具有密钥轮换策略(多个)，并且密钥不会硬编码到应用程序代码中(可动态修改)。
  *
  * 但为简单起见，本 demo 不演示 key 交换
  */
 @Configuration
 class KeyConfig {
-
-	public ClientDetailsService clientDetailsService() {
-		InMemoryClientDetailsService memoryClientDetailsService = new InMemoryClientDetailsService();
-		Map<String, ? extends ClientDetails> clientDetails = new HashMap<>();
-		BaseClientDetails demo;
-
-		demo = new BaseClientDetails();
-		demo.setClientId("demo-client-id");
-		demo.setClientSecret("secret");
-		demo.setAuthorizedGrantTypes(List.of("authorization_code", "password", "client_credentials", "implicit", "refresh_token"));
-		demo.setRegisteredRedirectUri(Set.of("http://localhost:8080/login/oauth2/code/demo","http://127.0.0.1:8080/login/oauth2/code/demo"));
-		demo.setScope(List.of("message:read", "message:write", "user:read"));
-		demo.setAccessTokenValiditySeconds(600_000_000);
-
-		memoryClientDetailsService.setClientDetailsStore(clientDetails);
-		return memoryClientDetailsService;
-	}
 
 	@Bean
     KeyPair keyPair() {

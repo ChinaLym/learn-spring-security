@@ -10,7 +10,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 /**
  * demo
  *
- * http://localhost:8080/oauth/authorize?response_type=code&client_id=lym&redirect_uri=http://example.com&scope=all
+ * http://demo.com/oauth/authorize?response_type=code&client_id=lym&redirect_uri=http://example.com&scope=all
  *
  * @author lym
  * @since 1.0

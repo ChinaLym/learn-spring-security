@@ -43,18 +43,6 @@ public class AuthorizationController {
 	private WebClient webClient;
 
 
-	/** 测试使用 webClient 调用资源服务器 */
-	@GetMapping(value = "/testwebclient")
-	@ResponseBody
-	public DemoUser testWebClient() {
-		return webClient.get()
-				.uri("http://127.0.0.1:8000/user")
-				.attributes(clientRegistrationId("demo"))
-				.retrieve()
-				.bodyToMono(DemoUser.class)
-				.block();
-	}
-
 	/** /authorize?grant_type=authorization_code */
 	@GetMapping(value = "/authorize", params = "grant_type=authorization_code")
 	public String authorization_code_grant(Model model) {

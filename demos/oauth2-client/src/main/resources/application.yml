@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 80
 
 logging:
   level:
@@ -34,8 +34,14 @@ spring:
             client-id: demo-client-id
             client-secret: secret
             authorization-grant-type: authorization_code
-            redirect-uri: '{baseUrl}/{action}/oauth2/code/{registrationId}' # http:8080/login/oauth/code/demo
+            redirect-uri: '{baseUrl}/{action}/oauth2/code/{registrationId}' # http://demo.com/login/oauth/code/demo
             client-name: demos里的 oauth2-auth-server
+          qq:
+            client-id: xxx
+            client-secret: xxxx
+            authorization-grant-type: authorization_code
+            redirect-uri: '{baseUrl}/{action}/oauth2/code/{registrationId}' # http://demo.com/login/oauth/code/qq
+            client-name: QQ
 
           messaging-client-auth-code:
             provider: demo
@@ -72,6 +78,12 @@ spring:
             token-uri: http://authServer.com:8081/oauth/token
             user-info-uri: http://resourceServer.com:8000/user
             user-name-attribute: userName
+          qq:
+            authorization-uri: https://graph.qq.com/oauth2.0/authorize # host 文件中 authServer 对应着 127.0.0.1
+            token-uri: https://graph.qq.com/oauth2.0/token
+            user-info-uri: https://graph.qq.com/user/get_user_info
+            user-name-attribute: nickname
+
 
 messages:
   base-uri: http://resourceServer.com:8000/messages
