@@ -15,6 +15,6 @@
  */
 
 /**
- * mock 一个认证服务器
+ * mock 一个授权服务器
  */
 package org.springframework.boot.env;

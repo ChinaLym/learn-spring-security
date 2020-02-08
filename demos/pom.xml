@@ -17,7 +17,7 @@
         <module>learn-security-demo-browser</module>
 
 
-        <!-- 认证服务器 -->
+        <!-- 授权服务器 -->
         <module>oauth2-auth-sever</module>
         <!-- 资源服务器 -->
         <module>oauth2-resource-server</module>

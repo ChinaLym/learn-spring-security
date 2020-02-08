@@ -15,7 +15,6 @@
  */
 package demo.lym.config;
 
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -28,7 +27,7 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 /**
  * @author Joe Grandja
  */
-//@EnableWebSecurity
+@EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	// @formatter:off
@@ -49,16 +48,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.anyRequest().authenticated()
 				.and()
 			/*.formLogin()
-				.loginPage("/login")
+				.loginPage("/login")// 本demo默认的登录页是oauth2的连接
 				.failureUrl("/login-error")
 				.permitAll()
 				.and()*/
-			.oauth2Client();
+			.oauth2Login() // 使用oauth进行登录，把认证也移到auth-server系统（oauth2 原本只是授权协议，这里实现了单点登录）
+				.and()
+			.oauth2Client();// 使用oauth2进行授权
 	}
 	// @formatter:on
 
 	// @formatter:off
-    @Bean
+    //@Bean
     public UserDetailsService users() {
         UserDetails user = User.withDefaultPasswordEncoder()
             .username("user1")

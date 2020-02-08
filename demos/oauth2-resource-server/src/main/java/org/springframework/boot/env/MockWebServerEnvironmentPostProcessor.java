@@ -18,11 +18,16 @@ package org.springframework.boot.env;
 
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.ConfigurableEnvironment;
 
 /**
+ * 本demo中默认使用 authServer.com:8081 作为授权服务器，mockAuthServer 其实不需要了
  * @author Rob Winch
  */
+@ConditionalOnProperty(prefix = "test", havingValue = "true")
+@Configuration
 public class MockWebServerEnvironmentPostProcessor
 		implements EnvironmentPostProcessor, DisposableBean {
 

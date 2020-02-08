@@ -30,6 +30,7 @@ import org.springframework.http.MediaType;
 import java.io.IOException;
 
 /**
+ * 创建一个默认的授权服务器，供测试
  * @author Rob Winch
  */
 public class MockWebServerPropertySource extends PropertySource<MockWebServer> implements

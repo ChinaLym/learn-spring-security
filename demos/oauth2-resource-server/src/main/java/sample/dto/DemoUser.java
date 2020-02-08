@@ -3,7 +3,6 @@ package sample.dto;
 /**
  * demoUser
  * @author lym
- * @since 1.0
  */
 public class DemoUser {
     String userName = "userName";

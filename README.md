@@ -32,7 +32,7 @@
     
 - 使用 spring 提供的 oauth2.0 认证
     - 实现类似 QQ、微信、微博、支付宝、github、gitee 等第三方登录
-    - 实现认证服务器、资源服务器，允许第三方应用通过本系统的账号访问他们系统
+    - 实现授权服务器、资源服务器，允许第三方应用通过本系统的账号访问他们系统
 
 
 - 介绍必要的知识
@@ -74,7 +74,7 @@
     - learn-security-demo
         - 使用本脚手架提供的 starter 快速开发项目、并演示如何自定义提供脚手架中提供的部分
     - auth-sever 
-        - 基于 spring security oauth 实现的认证服务器
+        - 基于 spring security oauth 实现的授权服务器
     - auth-resource-server
         - 基于 spring security oauth 实现的资源服务器
         

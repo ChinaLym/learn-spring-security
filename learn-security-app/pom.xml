@@ -41,7 +41,7 @@
             </exclusions>
         </dependency>
 
-        <!-- oauth2 认证服务器相关依赖 -->
+        <!-- oauth2 授权服务器相关依赖 -->
         <dependency>
             <groupId>org.springframework.security.oauth.boot</groupId>
             <artifactId>spring-security-oauth2-autoconfigure</artifactId>

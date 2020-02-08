@@ -7,7 +7,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import java.lang.annotation.*;
 
 /**
- * 标注为认证服务器
+ * 标注为授权服务器
  * 职责：发布认证token，校验 token 是否有效
  *
  * @author lym

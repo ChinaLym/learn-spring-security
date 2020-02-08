@@ -15,23 +15,21 @@
  */
 package sample.config;
 
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.annotation.web.configurers.oauth2.server.resource.OAuth2ResourceServerConfigurer;
-import org.springframework.security.oauth2.jwt.JwtDecoder;
-import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 
 /**
- * @author Josh Cummings
+ * @author lym
  */
+@Configuration
 @EnableWebSecurity
+//@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
 public class OAuth2ResourceServerSecurityConfig extends WebSecurityConfigurerAdapter {
 
-	// @formatter:off
+    // @formatter:off
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http
@@ -45,30 +43,10 @@ public class OAuth2ResourceServerSecurityConfig extends WebSecurityConfigurerAda
 				.anyRequest().authenticated()
 
 				.and()
-				.oauth2ResourceServer()
-				.jwt();
+					.oauth2ResourceServer()
+						.jwt();
 	}
 	// @formatter:on
-
-	@Value("${spring.security.oauth2.resourceserver.jwt.jwk-set-uri}") String jwkSetUri;
-/*
-	@Override
-	protected void configure(HttpSecurity http) throws Exception {
-		// @formatter:off
-		http
-			.authorizeRequests(authorizeRequests ->
-				authorizeRequests
-					.antMatchers(HttpMethod.GET, "/message/**").hasAuthority("SCOPE_message:read")
-					.antMatchers(HttpMethod.POST, "/message/**").hasAuthority("SCOPE_message:write")
-					.antMatchers(HttpMethod.GET, "/user").hasAuthority("SCOPE_user:read")
-					.anyRequest().authenticated()
-			)
-			.oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt);
-		// @formatter:on
-	}
-
-	@Bean
-	JwtDecoder jwtDecoder() {
-		return NimbusJwtDecoder.withJwkSetUri(this.jwkSetUri).build();
-	}*/
+    // 这里遵循 spring security 的配置项进行配置，让 spring 注入 jwk Decoder
+    // 如本 demo 通过配置 spring.security.oauth2.resourceserver.jwt.jwk-set-uri 来提供
 }

@@ -9,17 +9,19 @@ logging:
     org.springframework.security.oauth2: debug
 #    org.springframework.boot.autoconfigure: DEBUG
 
+auth:
+  host: authServer.com
+  port: 8081
+  uri: http://${auth.host:localhost}:${auth.port:8081}
+
 spring:
   security:
     oauth2:
       resourceserver:
         jwt:
           #jwk-set-uri: ${mockwebserver.url}/.well-known/jwks.json
-          jwk-set-uri: http://authServer.com:8081/.well-known/jwks.json
-        user-info-uri: http://${auth.host:localhost}:${auth.port:8081}/user # 这里是授权服务的地址，即auth-service
+          jwk-set-uri: ${auth.uri}/.well-known/jwks.json
+        user-info-uri: ${auth.uri}/user # 这里是授权服务的地址，即auth-service
         prefer-token-info: false
       authorization:
-        check-token-access: http://authServer:8081/oauth/check_token
-auth:
-  host:authServer.com
-  port:8081
+        check-token-access: ${auth.uri}/oauth/check_token

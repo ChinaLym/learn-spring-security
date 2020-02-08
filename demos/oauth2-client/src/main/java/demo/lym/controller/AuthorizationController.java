@@ -15,14 +15,12 @@
  */
 package demo.lym.controller;
 
-import demo.lym.dto.DemoUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.List;
@@ -36,7 +34,7 @@ import static org.springframework.security.oauth2.client.web.reactive.function.c
 @Controller
 public class AuthorizationController {
 
-	@Value("${messages.base-uri}")
+	@Value("${demo.resource.uri}" + "/message")
 	private String messagesBaseUri;
 
 	@Autowired

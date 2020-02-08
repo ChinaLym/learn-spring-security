@@ -65,7 +65,9 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
 
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
+        // 配置 获取用于验签 token 的公钥 Key uri 的访问权限
         security.tokenKeyAccess("permitAll()")
+                // 验证accessToken uri 的访问权限
                 .checkTokenAccess("isAuthenticated()");
     }
 

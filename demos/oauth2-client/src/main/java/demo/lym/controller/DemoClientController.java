@@ -3,7 +3,12 @@ package demo.lym.controller;
 import demo.lym.dto.DemoUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
+import org.springframework.security.oauth2.client.annotation.RegisteredOAuth2AuthorizedClient;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -31,10 +36,16 @@ public class DemoClientController {
 
     /**
      * 尝试从资源服务器获取资源
+     * @RegisteredOAuth2AuthorizedClient("demo-auth2-code") OAuth2AuthorizedClient authorizedClient 获取当前请求里的注册的 客户端的信息
+     * @AuthenticationPrincipal UserDetails userDetails: 相当于 SecurityContextHolder.getContext().getAuthentication().getPrincipal()
+     * @CurrentSecurityContext: 相当于 SecurityContextHolder.getContext()
+     * JWT: Authentication authentication：相当于 SecurityContextHolder.getContext().getAuthentication()
+     *
      */
     @ResponseBody
     @GetMapping("/test")
-    public ResponseEntity<DemoUser> getResource() {
+    public ResponseEntity<DemoUser> getResource(@RegisteredOAuth2AuthorizedClient("demo-auth2-code") OAuth2AuthorizedClient authorizedClient) {
+        System.out.println(authorizedClient);
         RequestAttributes requestAttributes = RequestContextHolder.currentRequestAttributes();
         if (requestAttributes != null) {
             HttpServletRequest request = ((ServletRequestAttributes) requestAttributes).getRequest();
@@ -54,7 +65,8 @@ public class DemoClientController {
     /** 测试使用 webClient 调用资源服务器 */
     @GetMapping(value = "/testwebclient")
     @ResponseBody
-    public DemoUser testWebClient() {
+    public DemoUser testWebClient(Authentication authentication) {
+        System.out.println(authentication);
         return webClient.get()
                 .uri("http://resourceServer.com/user")
                 .attributes(clientRegistrationId("demo"))

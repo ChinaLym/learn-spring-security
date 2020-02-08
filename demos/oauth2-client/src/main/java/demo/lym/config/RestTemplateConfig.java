@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 
+ * provider a restTemplate Bean
  * @author lym
  */
 @Configuration

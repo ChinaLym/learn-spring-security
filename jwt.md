@@ -85,7 +85,7 @@ json作为token这样就可以叫 token 了，但还不够完善，不是 `JWT` 
  
 ##### （更多完善）
 
-进行以上完善后，解决了标示、防伪、传输问题，已经处于可用状态了，但还有一些可改进的点（但非适用于所有场景）
+进行以上完善后，解决了标示、自包含(存储信息)、防伪、传输、可扩展问题，已经处于可用状态了，但还有一些可改进的点（但非适用于所有场景）
 
 - 信息安全
     - 上面的 json 形式的数据还是明文表示的，因此不应该在jwt中存放敏感数据，否则所有人都可以读到。
@@ -150,7 +150,7 @@ JWE由五部分组成：
     - jwt 的一种安全传输实现（可以理解为 JWS 的升级）
     
 - JWK：JSON Web Key，Public key specification
-    - 认证服务器的公钥（用于 JWE 中）
+    - 授权服务器的公钥（用于 JWE 中）
 
 - JWA：JSON Web Algorithms，Algorithms and identifiers specification
     - JWT 算法和标识符规范

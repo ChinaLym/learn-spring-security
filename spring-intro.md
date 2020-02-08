@@ -61,9 +61,9 @@
 - [spring 下一代 oauth2](https://spring.io/blog/2018/01/30/next-generation-oauth-2-0-support-with-spring-security)    
 - [spring 中与 oauth 相关项目功能一览 ](https://github.com/spring-projects/spring-security/wiki/OAuth-2.0-Features-Matrix)
 - [相关 issue](https://github.com/spring-projects/spring-security/issues/6733)
-- 认证服务器迁移？spring-security-oauth 提供了认证服务器的能力，而 spring security5.2.x中没有对应的支持，官方表示至少5.3.x会支持认证服务器
+- 授权服务器迁移？spring-security-oauth 提供了授权服务器的能力，而 spring security5.2.x中没有对应的支持，官方表示至少5.3.x会支持授权服务器
 - spring security 5.3.x 大概在2020年中旬发布
-- [github上对认证服务器的支持讨论](https://github.com/spring-projects/spring-security/issues/6320#issuecomment-564151705)
+- [github上对授权服务器的支持讨论](https://github.com/spring-projects/spring-security/issues/6320#issuecomment-564151705)
     
 该项目提供的能力逐渐由 spring-security 接管，并置于`spring-security-oauth-xxx`模块中
 

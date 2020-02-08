@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 认证服务器配置
+ * 授权服务器配置
  * 
  * @author lym
  *
