@@ -1,8 +1,5 @@
 package com.lym.security.code.propertities;
 
-import com.lym.security.SecurityConst;
-
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -22,6 +19,9 @@ public abstract class ValidateCodeProperties {
      * 验证码有效时间，默认 10 分钟
      */
     private int expireIn = 60 * 10;
+
+    /** 请求中的参数名 */
+    private String parameterName;
 
     /**
      * 需要校验验证码的 url 路径，支持通配符
@@ -52,4 +52,12 @@ public abstract class ValidateCodeProperties {
         this.urls = urls;
     }
 
+
+    public String getParameterName() {
+        return parameterName;
+    }
+
+    public void setParameterName(String parameterName) {
+        this.parameterName = parameterName;
+    }
 }

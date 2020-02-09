@@ -87,7 +87,7 @@ public abstract class AbstractValidateCodeProcessor<C extends ValidateCodeDTO> i
 		String codeInRequest;
 		try {
 			codeInRequest = ServletRequestUtils.getStringParameter(request.getRequest(),
-					codeType);
+					validateCodeProperties.getParameterName());
 		} catch (ServletRequestBindingException e) {
 			// 未能正确从请求中获取验证码
 			throw new ValidateCodeAuthenticationException("cant get validate-code(" + codeType + ") from request.", e);

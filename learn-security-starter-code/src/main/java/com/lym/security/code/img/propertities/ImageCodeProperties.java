@@ -26,6 +26,7 @@ public class ImageCodeProperties extends ValidateCodeProperties {
     ImageCodeProperties(){
         // 默认长度为 4
         setLength(4);
+        setParameterName(ValidateCodeConsts.IMAGE);
     }
 
     public int getWidth() {

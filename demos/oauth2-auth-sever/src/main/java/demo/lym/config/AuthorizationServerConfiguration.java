@@ -63,6 +63,7 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
         this.dataSource = dataSource;
     }
 
+    /** 配置授权服务器的校验策略 */
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
         // 配置 获取用于验签 token 的公钥 Key uri 的访问权限
@@ -71,6 +72,7 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
                 .checkTokenAccess("isAuthenticated()");
     }
 
+    /** 配置本授权服务器允许的客户端凭证信息（clientId | clientSecret） */
     @Override
     public void configure(ClientDetailsServiceConfigurer clients)
             throws Exception {
@@ -115,6 +117,7 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
 		// @formatter:on
     }
 
+    /** 配置端点信息 */
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) {
         // @formatter:off

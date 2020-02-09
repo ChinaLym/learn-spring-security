@@ -13,5 +13,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = ValidateCodeConsts.CONFIG_PREFIX + ".sms")
 public class SmsCodeProperties extends ValidateCodeProperties {
 
-
+    public SmsCodeProperties() {
+        setParameterName(ValidateCodeConsts.SMS);
+    }
 }

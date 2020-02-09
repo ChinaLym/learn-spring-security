@@ -47,3 +47,63 @@ Spring Security默认是禁用注解的，需要手动开启，作用是激活�
  public  @interface MyPermission {}
 ``` 
 用 `@MyPermission` 替代 `@PreAuthorize("#contact.name == authentication.name")`
+
+## 源码帮助
+
+Spring Security 中比较具有特色的就是 DSL，这个设计用起来非常灵活，但却让刚接触的小白十分头疼，一脸懵逼，写代码的时候各种搜索复制粘贴，好坏都有。DSL 设计的关键就是泛型，看Spring Security 代码你会发现他用泛型用上瘾了。
+
+- `SecurityBuilder<O>`
+	- 他只有一个方法 `O build() throws Exception`，可以看到这个接口的作用就是创建一个对象
+
+- `interface SecurityConfigurer<O, B extends SecurityBuilder<O>>`
+    - SecurityConfigurer 是 Spring Security dsl体系中最核心的一个接口，几乎 Spring Security 所有的dsl都围绕它来设计的
+	- 他包含两个泛型，第一个O是object，相当于待配置的对象，第二次B表示一个O的Builder
+	- 包含两个方法
+		- `init(B builder)`
+			- 框架会先调用该方法，做一些初始化的动作
+		- `configure(B builder)`**常用**
+			- 用户在该方法里通过builder配置。框架会调用该方法
+	
+- 	`abstract class SecurityConfigurerAdapter<O, B extends SecurityBuilder<O>> implements SecurityConfigurer<O, B>`
+	- `SecurityConfigurer` 的其中一个主要基类
+	- 这个类里有两个变量，一个就是 builder，另一个是 List<ObjectPostProcessor>，负责在创建完毕后执行后置操作
+	- 除继承的外关键方法
+		- `and()`**常用**
+			- 返回 builder，方便继续配置
+		- `protected postProcess()`	
+			- 注意该方法是保护范围的，因此该方法应该在子类中调用
+			
+			
+
+	
+- `interface ObjectPostProcessor<T>`
+	- `<O extends T> O postProcess(O object)`
+
+
+- `abstract class SecurityConfigurerAdapter`
+	- `SecurityConfigurer` 基础的抽象类
+	
+- interface `WebSecurityConfigurer` extends SecurityConfigurer
+    - 标记接口，无任何代码，Spring Security web方面比较核心的一个配置类，`WebSecurityConfigurerAdapter` 是它唯一的直接实现
+    
+- abstract class `WebSecurityConfigurerAdapter` implements WebSecurityConfigurer<WebSecurity>
+    - 
+
+    
+Spring security 有一套 dsl，其源码命名比较规范，如下:
+
+- `final class AAAaaaConfigurer`
+    - DSL 模型类，一般位于`configurers`包路径下。通常负责AAA 模块 aaa部分的配置项，`XxxConfigurer`接口中`configure`方法的参数，一般可以通过 aaa.dsl()进行配置
+    - 一般会伴有 `final class AAAaaaConfigurer`、`final class AAAbbbConfigurer`、`final class AAAcccConfigurer`
+    
+- `interface AAAConfigurer`
+    - 继承了配置项的接口，一般带有 `configure(AAAaaaConfigurer aaa)`，参数的类型就是上面提到的`final`类型的配置项
+    
+- `class AAAConfigurerAdapter`
+    - 实现了 `AAAConfigurer`，作为`AAAConfigurer` 接口的适配器，如`SecurityConfigurerAdapter`实现了 `SecurityConfigurer`
+    - 用户代码中应继承这种(`AAAConfigurerAdapter`)，实现自定义的配置
+
+- `class AAAConfiguration`
+    - 继承了 `AAAConfigurerAdapter`，通常这种类应该由用户代码提供。
+    - 但为了演示如何使用，以及省略通用场景下的配置代码，Spring 提供了默认实现，且是自动配置的基础。
+        如果用户没有继承 `AAAConfigurerAdapter` 并注入到 Spring 中，那么 Spring 就会使用缺省配置。
