@@ -6,12 +6,12 @@
 
 先上结论： 
 - 优先选择 Spring 官方推荐的 spring security 5.2.x +
-- 生产环境版本优先选择次最新版的最新的 SR，如当前最新是 H 版本，用于生产则最好使用 G 版本的最新一次 SR(官方标注GA的版本)
+- 生产环境版本优先选择次最新版的最新的 SR，如当前最新是 H 版本，用于生产追求文档则用 G 版本的最新 SR(官方标注GA的版本)，较长工期项目直接上最新版最新SR
 
 我的猜测：Spring 官方未来会废弃一切与 security 相关的子项目并迁移至 Spring Security 中，
-未来想在 Spring 中寻找与 security 相关的部分，只需学习 spring security 即可。
+若未来想在 Spring 中寻找与`安全`、`认证`、`授权`相关的部分，只需学习 spring security 即可。
 
-- 在 spring security5.3.x 前可以选择使用 `spring-security-oauth`（一年内不会被淘汰，未来终将被 spring security5.x取代）
+- 在 `spring security 5.3.x` 前可以有选择的使用 `spring-security-oauth`（一年内不会被淘汰，未来终将被 spring security5.x取代）
 
 - 不要再使用 `spring-security-xxx`、`spring-social`等
 
@@ -33,8 +33,9 @@
 既然两个starter都没了，除了依赖管理模块，只剩一个`spring-cloud-security`，那么要不要继续使用 spring-cloud-security 呢？
 看一下他的[源码](https://github.com/spring-cloud/spring-cloud-security/blob/master/spring-cloud-security/src/main/resources/META-INF/spring.factories)，
 发现其实该模块就提供了3个功能，也没几个类，因此即使依赖也没有任何关系，也十分容易迁移或者适配，
-所以我的建议是无所谓，
-虽然可以预见到，Spring官方未来会废弃一切与 security 相关的子项目并迁移至 Spring Security 中，
+所以我的建议是推荐不用，用了也无妨。
+可以预见到，Spring官方未来会废弃一切与 security 相关的子项目并迁移至 Spring Security 中，
+废弃spring-cloud-starter-security\oauth 迁移至 spring boot 中
 但spring 官方还没有正式出废弃 `spring-cloud-security` 的通知，
 也没出迁移 spring-cloud-security 到 spring-security 5.2.x 的说明文档，
 况且它本身的代码和功能不多，暂时使用也无妨。

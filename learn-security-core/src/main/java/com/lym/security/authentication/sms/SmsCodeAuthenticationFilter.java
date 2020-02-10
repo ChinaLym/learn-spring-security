@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * 支持短信验证码认证方式
+ * 支持手机号码认证方式
  * 参考了 {@link org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter}
  * 该 url 应该加载验证码过滤器之后，被其保护，否则会产生无条件登录现象。
  *
@@ -26,7 +26,7 @@ public class SmsCodeAuthenticationFilter extends AbstractAuthenticationProcessin
     // ~ Static fields/initializers
     // =====================================================================================
 
-    /** 短信验证码登录时，验证码参数名 */
+    /** 手机号登录时，手机号参数名 */
     private String phoneNumberParameter = SecurityConst.AUTHENTICATION_SMS_PARAMETER_NAME;
     /** 是否只支持 post 请求 */
     private boolean postOnly = true;

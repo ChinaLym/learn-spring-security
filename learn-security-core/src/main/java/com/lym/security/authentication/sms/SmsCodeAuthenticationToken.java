@@ -10,7 +10,7 @@ import org.springframework.security.core.SpringSecurityCoreVersion;
 import java.util.Collection;
 
 /**
- * 手机短信验证码认证 token
+ * 手机号码认证 token
  * 参考 {@link org.springframework.security.authentication.UsernamePasswordAuthenticationToken}
  *
  * @author lym

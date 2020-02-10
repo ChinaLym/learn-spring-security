@@ -8,7 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 /**
- * 负责短信验证码认证
+ * 负责手机号认证
  *
  * @author lym
  */
