@@ -1,6 +1,5 @@
 package com.lym.security.code.img;
 
-import com.lym.security.code.consts.ValidateCodeConsts;
 import com.lym.security.code.generator.ValidateCodeGenerator;
 import com.lym.security.code.img.propertities.ImageCodeProperties;
 import org.springframework.web.bind.ServletRequestUtils;
@@ -15,7 +14,7 @@ import java.util.Random;
  *
  * @author lym
  */
-public class ImageCodeGenerator implements ValidateCodeGenerator {
+public class ImageCodeGenerator implements ValidateCodeGenerator, ImageValidateCodeType {
 
     /**
      * 系统配置
@@ -24,11 +23,6 @@ public class ImageCodeGenerator implements ValidateCodeGenerator {
 
     public ImageCodeGenerator(ImageCodeProperties imageCodeProperties) {
         this.imageCodeProperties = imageCodeProperties;
-    }
-
-    @Override
-    public String getType() {
-        return ValidateCodeConsts.IMAGE;
     }
 
     private static final String[] FONT_NAMES = {"方正舒体", "华文彩云", "华文琥珀", "华文新魏", "幼圆",

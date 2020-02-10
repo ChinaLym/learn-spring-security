@@ -18,7 +18,7 @@ import org.springframework.web.context.request.ServletWebRequest;
  * @author lym
  */
 @Component("smsValidateCodeProcessor")
-public class SmsCodeProcessor extends AbstractValidateCodeProcessor<ValidateCodeDTO> {
+public class SmsCodeProcessor extends AbstractValidateCodeProcessor<ValidateCodeDTO> implements SmsValidateCodeType {
 
     /**
      * 短信验证码发送器
@@ -47,8 +47,4 @@ public class SmsCodeProcessor extends AbstractValidateCodeProcessor<ValidateCode
         }
     }
 
-    @Override
-    public String getType() {
-        return ValidateCodeConsts.SMS;
-    }
 }

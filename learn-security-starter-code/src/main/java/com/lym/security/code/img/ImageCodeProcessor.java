@@ -1,12 +1,10 @@
 package com.lym.security.code.img;
 
-import com.lym.security.code.consts.ValidateCodeConsts;
 import com.lym.security.code.exception.ValidateCodeException;
 import com.lym.security.code.generator.ValidateCodeGenerator;
 import com.lym.security.code.processor.AbstractValidateCodeProcessor;
 import com.lym.security.code.propertities.ValidateCodeProperties;
 import com.lym.security.code.store.ValidateCodeStore;
-import org.springframework.lang.Nullable;
 import org.springframework.web.context.request.ServletWebRequest;
 
 import javax.imageio.ImageIO;
@@ -16,7 +14,7 @@ import java.util.Objects;
  * 图片验证码处理器
  * @author lym
  */
-public class ImageCodeProcessor extends AbstractValidateCodeProcessor<ImageCode> {
+public class ImageCodeProcessor extends AbstractValidateCodeProcessor<ImageCode> implements ImageValidateCodeType {
 
 	public ImageCodeProcessor(ValidateCodeProperties validateCodeProperties, ValidateCodeGenerator validateCodeGenerator, ValidateCodeStore validateCodeStore) {
 		super(validateCodeProperties, validateCodeGenerator, validateCodeStore);
@@ -31,11 +29,6 @@ public class ImageCodeProcessor extends AbstractValidateCodeProcessor<ImageCode>
 		}catch(Exception e){
 			throw new ValidateCodeException("send validate code fail.", e);
 		}
-	}
-
-	@Override
-	public String getType() {
-		return ValidateCodeConsts.IMAGE;
 	}
 
 }

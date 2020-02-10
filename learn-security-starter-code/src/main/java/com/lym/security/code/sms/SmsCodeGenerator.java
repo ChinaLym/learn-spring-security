@@ -12,7 +12,7 @@ import org.springframework.web.context.request.ServletWebRequest;
  *
  * @author lym
  */
-public class SmsCodeGenerator implements ValidateCodeGenerator {
+public class SmsCodeGenerator implements ValidateCodeGenerator, SmsValidateCodeType {
 
     private SmsCodeProperties smsCodeProperties;
 
@@ -27,12 +27,6 @@ public class SmsCodeGenerator implements ValidateCodeGenerator {
     public ValidateCodeDTO generate(ServletWebRequest request) {
         String code = RandomStringUtils.randomNumeric(smsCodeProperties.getLength());
         return new ValidateCodeDTO(code, smsCodeProperties.getExpireIn());
-    }
-
-
-    @Override
-    public String getType() {
-        return ValidateCodeConsts.SMS;
     }
 
     public SmsCodeProperties getSmsCodeProperties() {
