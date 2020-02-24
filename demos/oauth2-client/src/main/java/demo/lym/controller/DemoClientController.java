@@ -2,11 +2,12 @@ package demo.lym.controller;
 
 import demo.lym.dto.DemoUser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
 import org.springframework.security.oauth2.client.annotation.RegisteredOAuth2AuthorizedClient;
 import org.springframework.stereotype.Controller;
@@ -19,8 +20,6 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
-import java.util.Map;
 
 import static org.springframework.security.oauth2.client.web.reactive.function.client.ServletOAuth2AuthorizedClientExchangeFilterFunction.clientRegistrationId;
 
@@ -31,31 +30,26 @@ import static org.springframework.security.oauth2.client.web.reactive.function.c
  */
 @Controller
 public class DemoClientController {
+
+    @Value("${demo.resource.uri}")
+    private String resourceServerAddress;
+
     @Autowired
     RestTemplate restTemplate;
 
     /**
      * 尝试从资源服务器获取资源
-     * @RegisteredOAuth2AuthorizedClient("demo-auth2-code") OAuth2AuthorizedClient authorizedClient 获取当前请求里的注册的 客户端的信息
-     * @AuthenticationPrincipal UserDetails userDetails: 相当于 SecurityContextHolder.getContext().getAuthentication().getPrincipal()
-     * @CurrentSecurityContext: 相当于 SecurityContextHolder.getContext()
-     * JWT: Authentication authentication：相当于 SecurityContextHolder.getContext().getAuthentication()
+     * <code>@RegisteredOAuth2AuthorizedClient("demo-auth2-code") OAuth2AuthorizedClient authorizedClient</code> 获取当前请求里的注册的 客户端的信息
+     * <code>@CurrentSecurityContext:</code>                           相当于 SecurityContextHolder.getContext()。注解必须加
+     * JWT: Authentication authentication：                            相当于 SecurityContextHolder.getContext().getAuthentication()
+     * <code>@AuthenticationPrincipal UserDetails userDetails:</code>  相当于 SecurityContextHolder.getContext().getAuthentication().getPrincipal()。注解必须加，否则默认从参数中获取
+     *
      *
      */
     @ResponseBody
     @GetMapping("/test")
-    public ResponseEntity<DemoUser> getResource(@RegisteredOAuth2AuthorizedClient("demo-auth2-code") OAuth2AuthorizedClient authorizedClient) {
-        System.out.println(authorizedClient);
-        RequestAttributes requestAttributes = RequestContextHolder.currentRequestAttributes();
-        if (requestAttributes != null) {
-            HttpServletRequest request = ((ServletRequestAttributes) requestAttributes).getRequest();
-            //String token = request.getHeader(TokenContext.KEY_OAUTH2_TOKEN);
-        }
-        // 发起 rest 调用，向 resource Server 获取资源
-
-        Map<String, String> param = new HashMap<>();
-        param.put(OAuth2AuthorizedClient.class.getName().concat(".CLIENT_REGISTRATION_ID"), "demo");
-        return restTemplate.getForEntity("http://resourceServer.com:8000/user", DemoUser.class, param);
+    public DemoUser getResource() {
+        return restTemplate.getForObject(resourceServerAddress + "/user", DemoUser.class);
     }
 
     @Autowired
@@ -65,13 +59,17 @@ public class DemoClientController {
     /** 测试使用 webClient 调用资源服务器 */
     @GetMapping(value = "/testwebclient")
     @ResponseBody
-    public DemoUser testWebClient(Authentication authentication) {
+    public DemoUser testWebClient(Authentication authentication,
+                                  @RegisteredOAuth2AuthorizedClient OAuth2AuthorizedClient authorizedClient) {
         System.out.println(authentication);
-        return webClient.get()
-                .uri("http://resourceServer.com/user")
-                .attributes(clientRegistrationId("demo"))
+
+        DemoUser rpcResult = webClient.get()
+                .uri(resourceServerAddress + "/user")
+                // "demo-auth2-code"
+                .attributes(clientRegistrationId(authorizedClient.getClientRegistration().getRegistrationId()))
                 .retrieve()
                 .bodyToMono(DemoUser.class)
                 .block();
+        return rpcResult;
     }
 }

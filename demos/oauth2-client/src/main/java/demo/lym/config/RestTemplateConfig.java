@@ -10,14 +10,22 @@ import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.security.core.AuthenticatedPrincipal;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
+import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.oauth2.client.http.OAuth2ErrorResponseErrorHandler;
 import org.springframework.security.oauth2.core.AbstractOAuth2Token;
+import org.springframework.security.oauth2.core.OAuth2AccessToken;
+import org.springframework.security.oauth2.core.OAuth2AuthenticatedPrincipal;
 import org.springframework.security.oauth2.core.http.converter.OAuth2AccessTokenResponseHttpMessageConverter;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.client.RestTemplate;
 
 import java.nio.charset.Charset;
+import java.security.Principal;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +38,7 @@ import java.util.List;
 public class RestTemplateConfig {
 
 	@Bean
-	public RestTemplate restTemplate(RestTemplateBuilder restTemplateBuilder) {
+	public RestTemplate restTemplate(RestTemplateBuilder restTemplateBuilder, OAuth2AuthorizedClientService oAuth2AuthorizedClientService) {
 		RestTemplate rest = restTemplateBuilder.build();
 
 		//替换默认转换器
@@ -57,20 +65,28 @@ public class RestTemplateConfig {
 		rest.setMessageConverters(messageConverters);
 
 		rest.setErrorHandler(new OAuth2ErrorResponseErrorHandler());
-		// 如果当前上下文中有 token 则放头部 实现传递
+
 		rest.getInterceptors().add((request, body, execution) -> {
+
+			// 如果当前上下文是 oauth2 认证的，有 accessToken 则放头部 实现传递
 			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-			boolean noAuth = authentication == null;
-			if (noAuth) {
-				return execution.execute(request, body);
+
+			// oauth2 user spring-security5.2.x + 写法
+			if (authentication != null && authentication instanceof OAuth2AuthenticationToken) {
+				String clientRegistrationId = ((OAuth2AuthenticationToken) authentication).getAuthorizedClientRegistrationId();
+				String principalName = ((OAuth2User) authentication.getPrincipal()).getName();
+				OAuth2AuthorizedClient oAuth2AuthorizedClient = oAuth2AuthorizedClientService.loadAuthorizedClient(clientRegistrationId, principalName);
+				AbstractOAuth2Token accessToken = oAuth2AuthorizedClient.getAccessToken();
+				request.getHeaders().setBearerAuth(accessToken.getTokenValue());
 			}
+			/* spring-security-oauth2 2.x写法
 			boolean notOAuth2Token = !(authentication.getCredentials() instanceof AbstractOAuth2Token);
 			if (notOAuth2Token) {
 				return execution.execute(request, body);
 			}
 
 			AbstractOAuth2Token token = (AbstractOAuth2Token) authentication.getCredentials();
-			request.getHeaders().setBearerAuth(token.getTokenValue());
+			request.getHeaders().setBearerAuth(token.getTokenValue());*/
 			return execution.execute(request, body);
 		});
 

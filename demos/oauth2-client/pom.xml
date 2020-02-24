@@ -34,10 +34,16 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-webflux</artifactId>
         </dependency>
-        <!-- netty -->
+        <!-- 使用 netty 作为 webClient 的实现 -->
         <dependency>
             <groupId>io.projectreactor.netty</groupId>
             <artifactId>reactor-netty</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.playtika.reactivefeign</groupId>
+            <artifactId>feign-reactor-webclient</artifactId>
+            <version>1.0.46</version>
         </dependency>
 
         <!-- thymeleaf -->

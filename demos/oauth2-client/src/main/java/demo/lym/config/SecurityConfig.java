@@ -38,35 +38,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/webjars/**");
 
 	}
-	// @formatter:on
-
-	// @formatter:off
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http
 			.authorizeRequests()
 				.anyRequest().authenticated()
 				.and()
-			/*.formLogin()
-				.loginPage("/login")// 本demo默认的登录页是oauth2的连接
-				.failureUrl("/login-error")
-				.permitAll()
-				.and()*/
-			.oauth2Login() // 使用oauth进行登录，把认证也移到auth-server系统（oauth2 原本只是授权协议，这里实现了单点登录）
-				.and()
-			.oauth2Client();// 使用oauth2进行授权
+			.oauth2Login(); // 使用oauth进行登录，把认证也移到auth-server系统（oauth2 原本只是授权协议，这里实现了单点登录）implementation of OpenID Connect Authentication using the Authorization Code Flow
+			//	.and()
+				//.oauth2
+			//.oauth2Client();// 使用oauth2进行授权implementation of OAuth 2.0 Authorization Code grant
 	}
 	// @formatter:on
-
-	// @formatter:off
-    //@Bean
-    public UserDetailsService users() {
-        UserDetails user = User.withDefaultPasswordEncoder()
-            .username("user1")
-            .password("password")
-            .roles("USER")
-            .build();
-        return  new InMemoryUserDetailsManager(user);
-    }
-    // @formatter:on
 }

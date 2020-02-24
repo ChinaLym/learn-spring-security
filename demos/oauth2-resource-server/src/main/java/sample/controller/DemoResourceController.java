@@ -15,6 +15,7 @@
  */
 package sample.controller;
 
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
@@ -63,7 +64,7 @@ public class DemoResourceController {
 	/** 测试用户信息是否能传递拿到 */
 	@GetMapping("/user")
 	public DemoUser createMessage() {
-		SecurityContextHolder.getContext().getAuthentication();
+		Authentication authToken = SecurityContextHolder.getContext().getAuthentication();
 		return new DemoUser();
 	}
 
