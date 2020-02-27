@@ -16,6 +16,7 @@
         <module name="oauth2-auth-sever" />
         <module name="oauth2-client" />
         <module name="oauth2-resource-server" />
+        <module name="reactor-demo" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>

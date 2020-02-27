@@ -22,6 +22,7 @@
         <!-- 资源服务器 -->
         <module>oauth2-resource-server</module>
         <module>oauth2-client</module>
+        <module>reactor-demo</module>
 
 
     </modules>
