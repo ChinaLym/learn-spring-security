@@ -18,6 +18,10 @@ spring:
   security:
     oauth2:
       resourceserver:
+        #opaque:
+        #  introspection-uri: ${auth.uri}/introspect
+        #  introspection-client-id: resource-client-id
+        #  introspection-client-secret: secret
         jwt:
           #jwk-set-uri: ${mockwebserver.url}/.well-known/jwks.json
           jwk-set-uri: ${auth.uri}/.well-known/jwks.json

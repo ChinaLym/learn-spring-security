@@ -27,6 +27,7 @@ public class FormAuthenticationSecurityConfig extends SecurityConfigurerAdapter<
 		this.authenticationFailureHandler = authenticationFailureHandler;
 	}
 
+	@Override
 	public void configure(HttpSecurity http) throws Exception {
 		http.formLogin()
 			.loginPage(SecurityConst.URL_REQUIRE_AUTHENTICATION)

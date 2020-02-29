@@ -17,6 +17,8 @@ package demo.lym.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
+import org.springframework.security.oauth2.client.annotation.RegisteredOAuth2AuthorizedClient;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -44,7 +46,7 @@ public class AuthorizationController {
 	/** /authorize?grant_type=authorization_code */
 	@GetMapping(value = "/authorize", params = "grant_type=authorization_code")
 	public String authorization_code_grant(Model model) {
-		List<String> messages = retrieveMessages("messaging-client-auth-code");
+		List<String> messages = retrieveMessages("demo-auth-code");
 		model.addAttribute("messages", messages);
 		return "index";
 	}
@@ -52,21 +54,22 @@ public class AuthorizationController {
 	/** customer redirect url */
 	@GetMapping("/authorized")		// registered redirect_uri for authorization_code
 	public String authorized(Model model) {
-		List<String> messages = retrieveMessages("messaging-client-auth-code");
+		List<String> messages = retrieveMessages("demo-auth-code");
 		model.addAttribute("messages", messages);
 		return "index";
 	}
 
 	@GetMapping(value = "/authorize", params = "grant_type=client_credentials")
-	public String client_credentials_grant(Model model) {
-		List<String> messages = retrieveMessages("messaging-client-client-creds");
+	public String client_credentials_grant(Model model, @RegisteredOAuth2AuthorizedClient OAuth2AuthorizedClient authorizedClient) {
+		System.out.println(authorizedClient);
+		List<String> messages = retrieveMessages("demo-client-creds");
 		model.addAttribute("messages", messages);
 		return "index";
 	}
 
 	@PostMapping(value = "/authorize", params = "grant_type=password")
 	public String password_grant(Model model) {
-		List<String> messages = retrieveMessages("messaging-client-password");
+		List<String> messages = retrieveMessages("demo-password");
 		model.addAttribute("messages", messages);
 		return "index";
 	}

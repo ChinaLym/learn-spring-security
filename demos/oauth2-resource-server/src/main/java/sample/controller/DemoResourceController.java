@@ -63,7 +63,7 @@ public class DemoResourceController {
 
 	/** 测试用户信息是否能传递拿到 */
 	@GetMapping("/user")
-	public DemoUser createMessage() {
+	public DemoUser user() {
 		Authentication authToken = SecurityContextHolder.getContext().getAuthentication();
 		return new DemoUser();
 	}

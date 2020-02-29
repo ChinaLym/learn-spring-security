@@ -29,24 +29,24 @@ spring:
     oauth2:
       client:
         registration:               # 需要把 demo 相关的配置到 demo 的授权服务器里，类似在QQ的开发者页面注册应用
-          demo-auth2-code:
+          demo-auth-code:
             client-name: demo-授权码模式
             provider: demo
             client-id: demo-client-id
             client-secret: secret
             authorization-grant-type: authorization_code
             redirect-uri: '{baseUrl}/{action}/oauth2/code/demo' # 默认 {baseUrl}/{action}/oauth2/code/{registrationId} 即 http://demo.com/login/oauth/code/demo
-          demo-auth2-client-creds:  # 客户端模式
+          demo-client-creds:  # 客户端模式
             client-name: demo-客户端模式
             provider: demo
-            client-id: messaging-client
+            client-id: demo-client-id
             client-secret: secret
             authorization-grant-type: client_credentials
             scope: message.read,message.write
-          demo-auth2-password:      # oauth2-密码模式
+          demo-password:      # oauth2-密码模式
             client-name: demo-密码模式
             provider: demo
-            client-id: messaging-client
+            client-id: demo-client-id
             client-secret: secret
             authorization-grant-type: password
             scope: message.read,message.write  

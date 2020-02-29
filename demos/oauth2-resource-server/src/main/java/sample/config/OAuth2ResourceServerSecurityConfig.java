@@ -15,6 +15,7 @@
  */
 package sample.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -28,8 +29,15 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @EnableWebSecurity
 //@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
 public class OAuth2ResourceServerSecurityConfig extends WebSecurityConfigurerAdapter {
+/*
 
-    // @formatter:off
+	@Value("${spring.security.oauth2.resourceserver.opaque.introspection-uri}") String introspectionUri;
+	@Value("${spring.security.oauth2.resourceserver.opaque.introspection-client-id}") String clientId;
+	@Value("${spring.security.oauth2.resourceserver.opaque.introspection-client-secret}") String clientSecret;
+*/
+
+
+	// @formatter:off
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http
@@ -44,6 +52,10 @@ public class OAuth2ResourceServerSecurityConfig extends WebSecurityConfigurerAda
 
 				.and()
 					.oauth2ResourceServer()
+					/*.opaqueToken(opaqueToken ->
+						opaqueToken
+							.introspectionUri(this.introspectionUri)
+							.introspectionClientCredentials(this.clientId, this.clientSecret));*/
 						.jwt();
 	}
 	// @formatter:on
