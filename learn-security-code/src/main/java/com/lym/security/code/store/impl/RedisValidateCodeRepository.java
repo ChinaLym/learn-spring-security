@@ -15,6 +15,8 @@ import java.util.concurrent.TimeUnit;
  */
 public class RedisValidateCodeRepository implements ValidateCodeStore {
 
+	private static final String DEFAULT_KEY_PREFIX = "CAPTCHA_CODE:";
+
 	private RedisTemplate<Object, Object> redisTemplate;
 
 	@SuppressWarnings("unchecked")
@@ -43,12 +45,18 @@ public class RedisValidateCodeRepository implements ValidateCodeStore {
 		redisTemplate.delete(buildKey(request, type));
 	}
 
-	private String buildKey(ServletWebRequest request, String type) {
+	/**
+	 * 返回在 redis 中存储验证码的 key
+	 * @param request request response
+	 * @param type 类型
+	 * @return 在 redis 中存储验证码的 key
+	 */
+	protected String buildKey(ServletWebRequest request, String type) {
 		String deviceId = request.getHeader("deviceId");
 		if (StringUtils.isBlank(deviceId)) {
 			throw new ValidateCodeException("please add the parameter deviceId in your requests!");
 		}
-		return "LYM_VALIDATE_CODE:" + ":" + deviceId + type;
+		return DEFAULT_KEY_PREFIX + deviceId + ":" + type;
 	}
 
 }

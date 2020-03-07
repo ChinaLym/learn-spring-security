@@ -13,7 +13,7 @@ public class SessionValidateCodeRepository implements ValidateCodeStore {
 	/**
 	 * 验证码放入session时的前缀
 	 */
-	private static final String SESSION_KEY_PREFIX = "LYM_VALIDATE_CODE";
+	private static final String DEFAULT_KEY_PREFIX = "CAPTCHA_CODE:";
 	
 	@Override
 	public void save(ServletWebRequest request, ValidateCodeDTO code, String validateCodeType) {
@@ -32,10 +32,10 @@ public class SessionValidateCodeRepository implements ValidateCodeStore {
 	}
 
 	/**
-	 * 拼装验证码放入session时的key
+	 * 验证码放入 session 的 key
 	 */
-	private String builderSessionKey(String validateCodeType) {
-		return SESSION_KEY_PREFIX + validateCodeType.toUpperCase();
+	protected String builderSessionKey(String validateCodeType) {
+		return DEFAULT_KEY_PREFIX + validateCodeType.toUpperCase();
 	}
 
 }
