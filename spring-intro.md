@@ -49,7 +49,7 @@
 
 ### spring-security-oauth 
 该项目是spring-security-xxx 系列中使用最广的项目，2年前 spring-security-oauth 是 spring 提供的 oauth 的解决方案，为什么现在不推荐使用了呢?
-- **官方文档明确宣布不支持，推荐迁移到spring security 5.2+**
+- **官方文档明确宣布不支持，推荐迁移到spring security 5.2+** [2020.5.7 官方博客也宣布其生命周期终止，逐渐废弃](https://spring.io/blog/2020/05/07/end-of-life-for-spring-security-oauth)
 - [spring-security-oauth 官方](https://projects.spring.io/spring-security-oauth/docs/oauth2.html) 推荐使用 spring security 5.2.x + 替代 spring security oauth
 - [spring security oauth 部分文档](https://docs.spring.io/spring-security/site/docs/current/reference/htmlsingle/#oauth2login)
 - 该项目的最后一次提交是2019年11月左右
