@@ -5,7 +5,7 @@
 由于 spring 官方看起来也需要时间，因此特作此说明，以减少各位技术leader和爱好者们在项目的技术选型中花费的时间。
 
 先上结论： 
-- 优先选择 Spring 官方推荐的 spring security 5.2.x +
+- 优先选择 Spring 官方推荐的 spring security 5.2.x +(当前5.4.PRE已经出了，推荐新项目使用更新的RA版本)
 - 生产环境版本优先选择次最新版的最新的 SR，如当前最新是 H 版本，用于生产追求文档则用 G 版本的最新 SR(官方标注GA的版本)，较长工期项目直接上最新版最新SR
 
 我的猜测：Spring 官方未来会废弃一切与 security 相关的子项目并迁移至 Spring Security 中，
@@ -49,7 +49,7 @@
 
 ### spring-security-oauth 
 该项目是spring-security-xxx 系列中使用最广的项目，2年前 spring-security-oauth 是 spring 提供的 oauth 的解决方案，为什么现在不推荐使用了呢?
-
+- **官方文档明确宣布不支持，推荐迁移到spring security 5.2+**
 - [spring-security-oauth 官方](https://projects.spring.io/spring-security-oauth/docs/oauth2.html) 推荐使用 spring security 5.2.x + 替代 spring security oauth
 - [spring security oauth 部分文档](https://docs.spring.io/spring-security/site/docs/current/reference/htmlsingle/#oauth2login)
 - 该项目的最后一次提交是2019年11月左右
@@ -64,8 +64,10 @@
 - [相关 issue](https://github.com/spring-projects/spring-security/issues/6733)
 - 授权服务器迁移？spring-security-oauth 提供了授权服务器的能力，而 spring security5.2.x中没有对应的支持，官方表示至少5.3.x会支持授权服务器
 - spring security 5.3.x 大概在2020年中旬发布
+- **凄凉** spring security 宣布不再支持认证服务器，并关闭了之前有关支持认证服务器的 issue
 - [github上对授权服务器的支持讨论](https://github.com/spring-projects/spring-security/issues/6320#issuecomment-564151705)
-    
+- **喜报！Spring 官方宣布继续支持认证服务器** spring security 官方内部对认证服务器的讨论也有很多争议，结论为spring不再支持！但在2020.4.15号又宣布继续支持认证服务器的框架，但把它作为一个独立项目[spring-authorization-server](https://github.com/spring-projects-experimental/spring-authorization-server)进行支持（不在spring security中），虽然它现在还是实验性的工程，但相信不久，就可以重构出炉了！！
+
 该项目提供的能力逐渐由 spring-security 接管，并置于`spring-security-oauth-xxx`模块中
 
 如果想使用该项目，在spring boot 中比较合适的jar如下：
