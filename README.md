@@ -1,28 +1,30 @@
-# 本项目旨在学习 spring security 的使用
+# 本项目旨在学习 spring security
 
-## 本项目是什么
+- 介绍 `Spring Security`的设计
+- 快速了解常见认证、授权机制， `oauth2.0`、`JWT` 等
+- 学习 `Spring Security` 的使用
+- 学习如何利用 `Spring Security` 快速实现认证授权机制
+- 基于 `Spring Security` 实现一个可复用的脚手架，帮助项目完成快速开发。
 
-基于 spring security 的脚手架，帮助项目完成快速开发
+## 本项目做出来的脚手架是什么
 
-可以理解为：该脚手架默认提供了一系列基于 spring security 的功能实现，使用者直接引入该脚手架，即可实现基本的认证授权功能，并可以替换为自己的实现
+可以理解为：默认提供一系列基于 spring security 的功能实现，使用者直接引入该脚手架，即可实现基本的认证授权功能，也可以替换为自己的实现。
 
-在开发时可以先引入这个脚手架，碰到不喜欢允许使用者以自己的实现替换。
+（该脚手架不会强制项目依赖脚手架中的类，使用者在使用时，也是依赖 spring 中的）
 
-该脚手架不会强制项目依赖脚手架中的类，使用者在使用时，也是依赖 spring 中的。
-
-帮助使用者快速了解 oauth2.0 以及如何通过 spring security 集成
-
-**OAuth2.0 流程，以及本脚手架采用的解决方案：**
+**OAuth2.0 流程（本脚手架选用的授权方案）**
 ![oauth2.0.png](img/oauth2.0.png)
 
-## spring 版本选型：（2020/02/02 最新的 GA 版本）
+## spring 版本选型：
 
 - spring：5.2.3.RELEASE
 - spring boot：2.2.4.RELEASE
 - spring cloud：Hoxton.SR1
 - spring security：5.2.1.RELEASE
 
-## 项目目的 & 意义
+（2020/02/02 最新的 GA 版本）
+
+## 学习该项目能得到什么
 
 - 演示如何使用并扩展 spring security 的功能
     - 使用自己的数据库的 user 表完成登录
@@ -88,4 +90,13 @@
             - 第三方（如QQ、微信等）登录
         
     - 提供单点登录服务
+
+## 补充 Shoulder-Framework
+该项目代码未来将作为`安全与认证`部分合并入 **[Shoulder-Framework](https://gitee.com/ChinaLym/shoulder-framework)** 
+
+`shoulder-framework` 是什么？
+- `Spring Boot` 常用功能插件
+- Java 快速开发脚手架
+- 优雅设计落地
+
     
