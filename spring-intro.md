@@ -42,12 +42,12 @@
 
 
 
-## spring-security-xxx 系列
+## ~~spring-security-xxx~~ 系列
 
 结论：该系列项目均停止维护，新项目中直接考虑使用 [spring-security](https://spring.io/projects/spring-security) 5.2.x+即可，因为这些项目提供的主要功能集成进 spring security 中了
 [github: spring-security 5.2.0.RELEASE](https://github.com/spring-projects/spring-security/tree/5.2.0.RELEASE)
 
-### spring-security-oauth 
+### ~~spring-security-oauth~~
 该项目是spring-security-xxx 系列中使用最广的项目，2年前 spring-security-oauth 是 spring 提供的 oauth 的解决方案，为什么现在不推荐使用了呢?
 - **官方文档明确宣布不支持，推荐迁移到spring security 5.2+** [2020.5.7 官方博客也宣布其生命周期终止，逐渐废弃](https://spring.io/blog/2020/05/07/end-of-life-for-spring-security-oauth)，它的自动装配项目（spring-security-oauth-boot）同样将废弃
 - [spring-security-oauth 官方](https://projects.spring.io/spring-security-oauth/docs/oauth2.html) 推荐使用 spring security 5.2.x + 替代 spring security oauth
@@ -64,9 +64,11 @@
 - [相关 issue](https://github.com/spring-projects/spring-security/issues/6733)
 - 授权服务器迁移？spring-security-oauth 提供了授权服务器的能力，而 spring security5.2.x中没有对应的支持，官方表示至少5.3.x会支持授权服务器
 - spring security 5.3.x 大概在2020年中旬发布
-- **凄凉** spring security 宣布不再支持认证服务器，并关闭了之前有关支持认证服务器的 issue
+- ~~**凄凉** spring security 宣布不再支持认证服务器，并关闭了之前有关支持认证服务器的 issue~~
 - [github上对授权服务器的支持讨论](https://github.com/spring-projects/spring-security/issues/6320#issuecomment-564151705)
 - **喜报！Spring 官方宣布继续支持认证服务器** spring security 官方内部对认证服务器的讨论也有很多争议，结论为spring不再支持！但在2020.4.15号又宣布继续支持认证服务器的框架，但把它作为一个独立项目[spring-authorization-server](https://github.com/spring-projects-experimental/spring-authorization-server)进行支持（不在spring security中），虽然它现在还是实验性的工程，但相信不久，就可以重构出炉了！！
+- **2020.8.21 日，[Spring Authorization Server 0.0.1 发布了](https://spring.io/blog/2020/08/21)**
+    - [最初版本的功能](https://github.com/spring-projects-experimental/spring-authorization-server/releases/tag/0.0.1)
 
 该项目提供的能力逐渐由 spring-security 接管，并置于`spring-security-oauth-xxx`模块中
 
@@ -78,17 +80,17 @@
         </dependency>
 ```
 
-### spring-security-saml
+### ~~spring-security-saml~~
 该项目是 saml 协议的一个实现
 [spring-security-saml](https://github.com/spring-projects/spring-security-saml)为什么刚出1.0版本就不维护了？
 - 该项目不太活跃，被关闭了，后续会慢慢集成进 spring security 中
 - 该项目的最后一次提交是2019年11月左右
 
-### spring-security-kerberos
+### ~~spring-security-kerberos~~
 该项目是 kerberos 的一个实现
 - 该项目的最后一次提交是2019年2月左右，可见也早早停止维护了
 
-## spring-io/platform
+## ~~spring-io/platform~~
 该项目主要用于依赖管理，作为 spring boot 1.x 系列的依赖管理项目，spring boot 2.x 现已经用 `spring-boot-dependencies` 替代
 - 2019年4月左右已经停止维护
 

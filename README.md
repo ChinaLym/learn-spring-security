@@ -91,8 +91,8 @@
         
     - 提供单点登录服务
 
-## 补充 Shoulder-Framework
-该项目代码未来将作为`安全与认证`部分合并入 **[Shoulder-Framework](https://gitee.com/ChinaLym/shoulder-framework)** 
+## 补充 **[Shoulder-Framework](https://github.com/ChinaLym/shoulder-framework)**（[gitee](https://gitee.com/ChinaLym/shoulder-framework)）
+该项目代码未来将作为`安全与认证`部分合并入 **[Shoulder-Framework](https://github.com/ChinaLym/shoulder-framework)**（[https://github.com/ChinaLym/shoulder-framework](https://gitee.com/ChinaLym/shoulder-framework)） 
 
 `shoulder-framework` 是什么？
 - `Spring Boot` 常用功能插件
