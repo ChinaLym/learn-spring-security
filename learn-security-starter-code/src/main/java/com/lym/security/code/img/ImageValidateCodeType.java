@@ -14,10 +14,11 @@ public interface ImageValidateCodeType extends ValidateCodeType {
 
     /**
      * 类型名称，处理器标识，请求参数名
+     *
      * @return 不能为空字符串
      */
     @Override
-    default String getType(){
+    default String getType() {
         return ValidateCodeConsts.IMAGE;
     }
 

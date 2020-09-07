@@ -1,6 +1,5 @@
 package com.lym.security.code.sms;
 
-import com.lym.security.code.consts.ValidateCodeConsts;
 import com.lym.security.code.dto.ValidateCodeDTO;
 import com.lym.security.code.generator.ValidateCodeGenerator;
 import com.lym.security.code.sms.propertities.SmsCodeProperties;

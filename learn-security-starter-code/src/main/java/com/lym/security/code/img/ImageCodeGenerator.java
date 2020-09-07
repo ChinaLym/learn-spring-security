@@ -16,6 +16,10 @@ import java.util.Random;
  */
 public class ImageCodeGenerator implements ValidateCodeGenerator, ImageValidateCodeType {
 
+    private static final String[] FONT_NAMES = {"方正舒体", "华文彩云", "华文琥珀", "华文新魏", "幼圆",
+            "微软雅黑", "楷体", "Agency FB", "Bradley Hand ITC", "Copperplate Gothic Light"};
+    private static final String[] CHARS = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F", "G", "H",
+            "J", "K", "L", "M", "N", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
     /**
      * 系统配置
      */
@@ -24,12 +28,6 @@ public class ImageCodeGenerator implements ValidateCodeGenerator, ImageValidateC
     public ImageCodeGenerator(ImageCodeProperties imageCodeProperties) {
         this.imageCodeProperties = imageCodeProperties;
     }
-
-    private static final String[] FONT_NAMES = {"方正舒体", "华文彩云", "华文琥珀", "华文新魏", "幼圆",
-            "微软雅黑", "楷体", "Agency FB", "Bradley Hand ITC", "Copperplate Gothic Light"};
-
-    private static final String[] CHARS = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F", "G", "H",
-            "J", "K", "L", "M", "N", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
 
     /**
      * 生成验证码图片

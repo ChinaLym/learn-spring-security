@@ -13,7 +13,7 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 /**
- *跨域请求配置
+ * 跨域请求配置
  */
 @Configuration
 public class CorsConfig extends WebMvcConfigurerAdapter {
@@ -22,7 +22,7 @@ public class CorsConfig extends WebMvcConfigurerAdapter {
         registry.addMapping("/**").allowedOrigins("*")
                 .allowedMethods("GET", "HEAD", "POST", "PUT", "DELETE", "OPTIONS")
                 .allowedHeaders("Accept", "Origin", "X-Requested-With", "Content-Type",
-                        "Last-Modified", "device", "token","x-token")
+                        "Last-Modified", "device", "token", "x-token")
                 .exposedHeaders("Set-Cookie")
                 .allowCredentials(true).maxAge(3600);
     }
@@ -35,7 +35,7 @@ public class CorsConfig extends WebMvcConfigurerAdapter {
                 .allowedMethods(HttpMethod.GET.name(), HttpMethod.HEAD.name(), HttpMethod.POST.name(),
                         HttpMethod.PUT.name(), HttpMethod.OPTIONS.name())
                 .allowedHeaders("Accept", "Origin", "X-Requested-With", "Content-Type",
-                        "Last-Modified", "device", "token","x-token")
+                        "Last-Modified", "device", "token", "x-token")
                 .exposedHeaders(HttpHeaders.SET_COOKIE)
                 .allowCredentials(true)
                 .maxAge(3600);
@@ -52,7 +52,10 @@ public class CorsConfig extends WebMvcConfigurerAdapter {
         public MyCorsRegistration(String pathPattern) {
             super(pathPattern);
         }
-        /** 开放该方法访问权限为 public */
+
+        /**
+         * 开放该方法访问权限为 public
+         */
         @Override
         public CorsConfiguration getCorsConfiguration() {
             return super.getCorsConfiguration();

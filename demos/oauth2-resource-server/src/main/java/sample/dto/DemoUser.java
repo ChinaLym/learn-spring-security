@@ -2,6 +2,7 @@ package sample.dto;
 
 /**
  * demoUser
+ *
  * @author lym
  */
 public class DemoUser {

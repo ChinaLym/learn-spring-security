@@ -49,8 +49,8 @@ spring:
             client-id: demo-client-id
             client-secret: secret
             authorization-grant-type: password
-            scope: message.read,message.write  
-            
+            scope: message.read,message.write
+
           github:
             client-id: your-app-client-id
             client-secret: your-app-client-secret

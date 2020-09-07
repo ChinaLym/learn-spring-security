@@ -18,9 +18,11 @@ package sample.controller;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.oauth2.jwt.Jwt;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 import sample.dto.DemoUser;
 
 import java.util.ArrayList;
@@ -34,44 +36,48 @@ import java.util.UUID;
 @RestController
 public class DemoResourceController {
 
-	Random r = new Random();
+    Random r = new Random();
 
-	@GetMapping("/")
-	public String index(@AuthenticationPrincipal Jwt jwt) {
-		return String.format("Hello, %s!", jwt.getSubject());
-	}
+    @GetMapping("/")
+    public String index(@AuthenticationPrincipal Jwt jwt) {
+        return String.format("Hello, %s!", jwt.getSubject());
+    }
 
-	@GetMapping("/message")
-	public String message() {
-		return "Message";
-	}
+    @GetMapping("/message")
+    public String message() {
+        return "Message";
+    }
 
-	@GetMapping("/messages")
-	public List<String> messages() {
-		int size = r.nextInt(10) + 5;
-		List<String> list = new ArrayList<>(size);
-		for (int i = 0; i < size; i++) {
-			list.add("message " + i + " : " + UUID.randomUUID());
-		}
-		return list;
-	}
+    @GetMapping("/messages")
+    public List<String> messages() {
+        int size = r.nextInt(10) + 5;
+        List<String> list = new ArrayList<>(size);
+        for (int i = 0; i < size; i++) {
+            list.add("message " + i + " : " + UUID.randomUUID());
+        }
+        return list;
+    }
 
-	@PostMapping("/message")
-	public String createMessage(@RequestBody String message) {
-		return String.format("Message was created. Content: %s", message);
-	}
+    @PostMapping("/message")
+    public String createMessage(@RequestBody String message) {
+        return String.format("Message was created. Content: %s", message);
+    }
 
-	/** 测试用户信息是否能传递拿到 */
-	@GetMapping("/user")
-	public DemoUser user() {
-		Authentication authToken = SecurityContextHolder.getContext().getAuthentication();
-		return new DemoUser();
-	}
+    /**
+     * 测试用户信息是否能传递拿到
+     */
+    @GetMapping("/user")
+    public DemoUser user() {
+        Authentication authToken = SecurityContextHolder.getContext().getAuthentication();
+        return new DemoUser();
+    }
 
-	/** 不登录也能访问 */
-	@GetMapping("/ping")
-	public String ping() {
-		return "PONG";
-	}
+    /**
+     * 不登录也能访问
+     */
+    @GetMapping("/ping")
+    public String ping() {
+        return "PONG";
+    }
 
 }

@@ -3,10 +3,6 @@ package demo.lym.controller;
 import demo.lym.dto.DemoUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
 import org.springframework.security.oauth2.client.annotation.RegisteredOAuth2AuthorizedClient;
@@ -14,28 +10,25 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.context.request.RequestAttributes;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.reactive.function.client.WebClient;
-
-import javax.servlet.http.HttpServletRequest;
 
 import static org.springframework.security.oauth2.client.web.reactive.function.client.ServletOAuth2AuthorizedClientExchangeFilterFunction.clientRegistrationId;
 
 /**
  * 调用资源服务器
+ *
  * @author lym
  * @since 1.0
  */
 @Controller
 public class DemoClientController {
 
-    @Value("${demo.resource.uri}")
-    private String resourceServerAddress;
-
     @Autowired
     RestTemplate restTemplate;
+    @Value("${demo.resource.uri}")
+    private String resourceServerAddress;
+    @Autowired
+    private WebClient webClient;
 
     /**
      * 尝试从资源服务器获取资源
@@ -43,8 +36,6 @@ public class DemoClientController {
      * <code>@CurrentSecurityContext:</code>                           相当于 SecurityContextHolder.getContext()。注解必须加
      * JWT: Authentication authentication：                            相当于 SecurityContextHolder.getContext().getAuthentication()
      * <code>@AuthenticationPrincipal UserDetails userDetails:</code>  相当于 SecurityContextHolder.getContext().getAuthentication().getPrincipal()。注解必须加，否则默认从参数中获取
-     *
-     *
      */
     @ResponseBody
     @GetMapping("/test")
@@ -52,11 +43,9 @@ public class DemoClientController {
         return restTemplate.getForObject(resourceServerAddress + "/user", DemoUser.class);
     }
 
-    @Autowired
-    private WebClient webClient;
-
-
-    /** 测试使用 webClient 调用资源服务器 */
+    /**
+     * 测试使用 webClient 调用资源服务器
+     */
     @GetMapping(value = "/testwebclient")
     @ResponseBody
     public DemoUser testWebClient(Authentication authentication,

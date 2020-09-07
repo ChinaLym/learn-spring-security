@@ -20,7 +20,9 @@ public abstract class ValidateCodeProperties {
      */
     private int expireIn = 60 * 10;
 
-    /** 请求中的参数名 */
+    /**
+     * 请求中的参数名
+     */
     private String parameterName;
 
     /**

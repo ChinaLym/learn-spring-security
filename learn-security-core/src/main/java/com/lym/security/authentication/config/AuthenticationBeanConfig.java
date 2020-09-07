@@ -11,12 +11,10 @@ import org.springframework.security.web.authentication.AuthenticationFailureHand
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 /**
- * 
  * 认证相关的扩展点配置。配置在这里的bean，业务系统都可以通过声明同类型或同名的bean来覆盖安全
  * 模块默认的配置。
- * 
- * @author lym
  *
+ * @author lym
  */
 @Configuration
 public class AuthenticationBeanConfig {
@@ -29,7 +27,7 @@ public class AuthenticationBeanConfig {
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
-	
+
 	/**
 	 * 提醒实现默认认证器
 	 */

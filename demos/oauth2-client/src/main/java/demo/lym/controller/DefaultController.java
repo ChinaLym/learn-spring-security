@@ -25,34 +25,35 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 /**
  * 页面跳转
+ *
  * @author lym
  */
 @Controller
 public class DefaultController {
 
-	@GetMapping("/")
-	public String index(Model model,
-						@RegisteredOAuth2AuthorizedClient OAuth2AuthorizedClient authorizedClient,
-						@AuthenticationPrincipal OAuth2User oauth2User) {
-		model.addAttribute("userName", oauth2User.getName());
-		model.addAttribute("clientName", authorizedClient.getClientRegistration().getClientName());
-		model.addAttribute("userAttributes", oauth2User.getAttributes());
-		return "index-old";
-	}
+    @GetMapping("/")
+    public String index(Model model,
+                        @RegisteredOAuth2AuthorizedClient OAuth2AuthorizedClient authorizedClient,
+                        @AuthenticationPrincipal OAuth2User oauth2User) {
+        model.addAttribute("userName", oauth2User.getName());
+        model.addAttribute("clientName", authorizedClient.getClientRegistration().getClientName());
+        model.addAttribute("userAttributes", oauth2User.getAttributes());
+        return "index-old";
+    }
 
-	@GetMapping("/index")
-	public String index() {
-		return "index";
-	}
+    @GetMapping("/index")
+    public String index() {
+        return "index";
+    }
 
-	@GetMapping("/login")
-	public String login() {
-		return "login";
-	}
+    @GetMapping("/login")
+    public String login() {
+        return "login";
+    }
 
-	@GetMapping("/login-error")
-	public String loginError(Model model) {
-		model.addAttribute("loginError", true);
-		return login();
-	}
+    @GetMapping("/login-error")
+    public String loginError(Model model) {
+        model.addAttribute("loginError", true);
+        return login();
+    }
 }

@@ -3,8 +3,8 @@ package demo.lym.enums;
 import javax.persistence.AttributeConverter;
 
 /**
- * @param <ATTR> 实体类中枚举的类型（需实现{@link CustomerPersistentEnum} 接口）
- * @param <PERSIST_TYPE>   保存到数据库的数据类型
+ * @param <ATTR>         实体类中枚举的类型（需实现{@link CustomerPersistentEnum} 接口）
+ * @param <PERSIST_TYPE> 保存到数据库的数据类型
  * @author peter
  * date: 2019-05-15 16:59
  */

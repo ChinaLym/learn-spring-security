@@ -41,6 +41,7 @@ public class SmsCodeAuthenticationFilter extends AbstractAuthenticationProcessin
     // ~ Methods
     // ========================================================================================================
 
+    @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
             throws AuthenticationException {
         if (postOnly && !request.getMethod().equals("POST")) {
@@ -83,18 +84,6 @@ public class SmsCodeAuthenticationFilter extends AbstractAuthenticationProcessin
     }
 
     /**
-     * Sets the parameter name which will be used to obtain the phoneNumber from
-     * the login request.
-     *
-     * @param usernameParameter the parameter name. Defaults to "phoneNumber".
-     */
-    public void setPhoneNumberParameter(String usernameParameter) {
-        Assert.hasText(usernameParameter, "phoneNumber parameter must not be empty or null");
-        this.phoneNumberParameter = usernameParameter;
-    }
-
-
-    /**
      * Defines whether only HTTP POST requests will be allowed by this filter.
      * If set to true, and an authentication request is received which is not a
      * POST request, an exception will be raised immediately and authentication
@@ -109,6 +98,17 @@ public class SmsCodeAuthenticationFilter extends AbstractAuthenticationProcessin
 
     public final String getPhoneNumberParameter() {
         return phoneNumberParameter;
+    }
+
+    /**
+     * Sets the parameter name which will be used to obtain the phoneNumber from
+     * the login request.
+     *
+     * @param usernameParameter the parameter name. Defaults to "phoneNumber".
+     */
+    public void setPhoneNumberParameter(String usernameParameter) {
+        Assert.hasText(usernameParameter, "phoneNumber parameter must not be empty or null");
+        this.phoneNumberParameter = usernameParameter;
     }
 
 }

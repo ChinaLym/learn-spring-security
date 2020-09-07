@@ -23,7 +23,7 @@ public class ImageCodeProperties extends ValidateCodeProperties {
      */
     private int height = 40;
 
-    ImageCodeProperties(){
+    ImageCodeProperties() {
         // 默认长度为 4
         setLength(4);
         setParameterName(ValidateCodeConsts.IMAGE);

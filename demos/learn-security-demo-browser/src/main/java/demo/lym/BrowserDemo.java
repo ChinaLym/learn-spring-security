@@ -22,7 +22,7 @@ public class BrowserDemo {
     }
 
     @GetMapping("/hi")
-    public String hello(){
+    public String hello() {
         return "Hello, browser";
     }
 

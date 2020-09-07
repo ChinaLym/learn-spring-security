@@ -3,7 +3,6 @@ package demo.lym.security.sevice;
 import com.lym.security.SecurityConst;
 import com.lym.security.authentication.config.FormAuthenticationSecurityConfig;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 

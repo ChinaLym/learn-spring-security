@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.lym.security.code.sms;
 
 /**

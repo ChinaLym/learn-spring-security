@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * 授权服务器
+ *
  * @author lym
  * @since 1.0
  */
@@ -20,7 +21,7 @@ public class OAuth2AuthServer {
     }
 
     @RequestMapping("hello")
-    public String hello(){
+    public String hello() {
         return "hi";
     }
 

@@ -24,23 +24,24 @@ import org.springframework.core.env.ConfigurableEnvironment;
 
 /**
  * 本demo中默认使用 authServer.com:8081 作为授权服务器，mockAuthServer 其实不需要了
+ *
  * @author Rob Winch
  */
 @ConditionalOnProperty(prefix = "test", havingValue = "true")
 @Configuration
 public class MockWebServerEnvironmentPostProcessor
-		implements EnvironmentPostProcessor, DisposableBean {
+        implements EnvironmentPostProcessor, DisposableBean {
 
-	private final MockWebServerPropertySource propertySource = new MockWebServerPropertySource();
+    private final MockWebServerPropertySource propertySource = new MockWebServerPropertySource();
 
-	@Override
-	public void postProcessEnvironment(ConfigurableEnvironment environment,
-			SpringApplication application) {
-		environment.getPropertySources().addFirst(this.propertySource);
-	}
+    @Override
+    public void postProcessEnvironment(ConfigurableEnvironment environment,
+                                       SpringApplication application) {
+        environment.getPropertySources().addFirst(this.propertySource);
+    }
 
-	@Override
-	public void destroy() throws Exception {
-		this.propertySource.destroy();
-	}
+    @Override
+    public void destroy() throws Exception {
+        this.propertySource.destroy();
+    }
 }

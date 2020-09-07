@@ -15,7 +15,6 @@
  */
 package sample.config;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -37,28 +36,28 @@ public class OAuth2ResourceServerSecurityConfig extends WebSecurityConfigurerAda
 */
 
 
-	// @formatter:off
-	@Override
-	protected void configure(HttpSecurity http) throws Exception {
-		http
-				//.mvcMatcher("/messages/**")
-					.authorizeRequests()
-						//.mvcMatchers("/messages/**").access("hasAuthority('SCOPE_message.read')")
-						.antMatchers(HttpMethod.GET, "/message/**").hasAuthority("SCOPE_message:read")
-						.antMatchers(HttpMethod.POST, "/message/**").hasAuthority("SCOPE_message:write")
-						.antMatchers(HttpMethod.GET, "/user").hasAuthority("SCOPE_user:read")
-						.antMatchers("/ping").permitAll()
-				.anyRequest().authenticated()
+    // @formatter:off
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http
+                //.mvcMatcher("/messages/**")
+                .authorizeRequests()
+                //.mvcMatchers("/messages/**").access("hasAuthority('SCOPE_message.read')")
+                .antMatchers(HttpMethod.GET, "/message/**").hasAuthority("SCOPE_message:read")
+                .antMatchers(HttpMethod.POST, "/message/**").hasAuthority("SCOPE_message:write")
+                .antMatchers(HttpMethod.GET, "/user").hasAuthority("SCOPE_user:read")
+                .antMatchers("/ping").permitAll()
+                .anyRequest().authenticated()
 
-				.and()
-					.oauth2ResourceServer()
-					/*.opaqueToken(opaqueToken ->
-						opaqueToken
-							.introspectionUri(this.introspectionUri)
-							.introspectionClientCredentials(this.clientId, this.clientSecret));*/
-						.jwt();
-	}
-	// @formatter:on
+                .and()
+                .oauth2ResourceServer()
+                /*.opaqueToken(opaqueToken ->
+                    opaqueToken
+                        .introspectionUri(this.introspectionUri)
+                        .introspectionClientCredentials(this.clientId, this.clientSecret));*/
+                .jwt();
+    }
+    // @formatter:on
     // 这里遵循 spring security 的配置项进行配置，让 spring 注入 jwk Decoder
     // 如本 demo 通过配置 spring.security.oauth2.resourceserver.jwt.jwk-set-uri 来提供
 }

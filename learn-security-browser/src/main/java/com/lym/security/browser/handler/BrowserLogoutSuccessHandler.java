@@ -18,11 +18,11 @@ import java.io.IOException;
  */
 public class BrowserLogoutSuccessHandler implements LogoutSuccessHandler {
 
+    private String signOutSuccessUrl;
+
     public BrowserLogoutSuccessHandler(String signOutSuccessUrl) {
         this.signOutSuccessUrl = signOutSuccessUrl;
     }
-
-    private String signOutSuccessUrl;
 
     @Override
     public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication)

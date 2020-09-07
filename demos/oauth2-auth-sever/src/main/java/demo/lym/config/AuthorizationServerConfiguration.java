@@ -63,7 +63,9 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
         this.dataSource = dataSource;
     }
 
-    /** 配置授权服务器的校验策略 */
+    /**
+     * 配置授权服务器的校验策略
+     */
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
         // 配置 获取用于验签 token 的公钥 Key uri 的访问权限
@@ -73,7 +75,9 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
                 .checkTokenAccess("isAuthenticated()");
     }
 
-    /** 配置本授权服务器允许的客户端凭证信息（clientId | clientSecret） */
+    /**
+     * 配置本授权服务器允许的客户端凭证信息（clientId | clientSecret）
+     */
     @Override
     public void configure(ClientDetailsServiceConfigurer clients)
             throws Exception {
@@ -115,24 +119,25 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
                     .redirectUris("http://demo.com/authorized","http://localhost/authorized","http://127.0.0.1/authorized")
                     .scopes("message.read", "message.write")
 					.accessTokenValiditySeconds(600_000_000);*/
-		// @formatter:on
+        // @formatter:on
     }
 
-    /** 配置端点信息 */
+    /**
+     * 配置端点信息
+     */
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) {
         // @formatter:off
-		endpoints
-				.authenticationManager(this.authenticationManager)
-				.tokenStore(tokenStore());
+        endpoints
+                .authenticationManager(this.authenticationManager)
+                .tokenStore(tokenStore());
 
-		if (this.jwtEnabled) {
-			endpoints
-					.accessTokenConverter(accessTokenConverter());
-		}
-		// @formatter:on
+        if (this.jwtEnabled) {
+            endpoints
+                    .accessTokenConverter(accessTokenConverter());
+        }
+        // @formatter:on
     }
-
 
 
     @Bean
@@ -142,7 +147,7 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
         if (this.jwtEnabled) {
             tokenStore = new JwtTokenStore(accessTokenConverter());
             type = "jwt";
-        } else if(dataSource != null){
+        } else if (dataSource != null) {
             tokenStore = new JdbcTokenStore(dataSource);
             type = "jdbc";
         } else {
@@ -164,7 +169,6 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
 
         return converter;
     }
-
 
 
     /**

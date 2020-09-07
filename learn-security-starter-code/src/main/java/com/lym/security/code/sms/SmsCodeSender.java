@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package com.lym.security.code.sms;
 
@@ -8,7 +8,7 @@ package com.lym.security.code.sms;
  * @author lym
  */
 public interface SmsCodeSender {
-	
-	void send(String mobile, String code) throws Exception;
+
+    void send(String mobile, String code) throws Exception;
 
 }

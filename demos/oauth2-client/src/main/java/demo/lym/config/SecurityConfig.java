@@ -19,10 +19,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
 /**
  * @author Joe Grandja
@@ -30,24 +26,25 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-	// @formatter:off
-	@Override
-	public void configure(WebSecurity web) {
-		web
-			.ignoring()
-				.antMatchers("/webjars/**");
+    // @formatter:off
+    @Override
+    public void configure(WebSecurity web) {
+        web
+                .ignoring()
+                .antMatchers("/webjars/**");
 
-	}
-	@Override
-	protected void configure(HttpSecurity http) throws Exception {
-		http
-			.authorizeRequests()
-				.anyRequest().authenticated()
-				.and()
-			.oauth2Login(); // 使用oauth进行登录，把认证也移到auth-server系统（oauth2 原本只是授权协议，这里实现了单点登录）implementation of OpenID Connect Authentication using the Authorization Code Flow
-			//	.and()
-				//.oauth2
-			//.oauth2Client();// 使用oauth2进行授权implementation of OAuth 2.0 Authorization Code grant
-	}
-	// @formatter:on
+    }
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http
+                .authorizeRequests()
+                .anyRequest().authenticated()
+                .and()
+                .oauth2Login(); // 使用oauth进行登录，把认证也移到auth-server系统（oauth2 原本只是授权协议，这里实现了单点登录）implementation of OpenID Connect Authentication using the Authorization Code Flow
+        //	.and()
+        //.oauth2
+        //.oauth2Client();// 使用oauth2进行授权implementation of OAuth 2.0 Authorization Code grant
+    }
+    // @formatter:on
 }

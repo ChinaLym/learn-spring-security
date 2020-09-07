@@ -1,7 +1,6 @@
 package com.lym.security.code.sms;
 
 import com.lym.security.SecurityConst;
-import com.lym.security.code.consts.ValidateCodeConsts;
 import com.lym.security.code.dto.ValidateCodeDTO;
 import com.lym.security.code.exception.ValidateCodeException;
 import com.lym.security.code.generator.ValidateCodeGenerator;
@@ -25,16 +24,18 @@ public class SmsCodeProcessor extends AbstractValidateCodeProcessor<ValidateCode
      */
     private SmsCodeSender smsCodeSender;
 
-    /** 短信验证码只有 POST 请求才能获取（避免直接在浏览器地址栏上直接访问调用） */
-    @Override
-    protected boolean isPostOnly(){
-        return true;
-    }
-
     public SmsCodeProcessor(ValidateCodeProperties validateCodeProperties, ValidateCodeGenerator validateCodeGenerator,
                             ValidateCodeStore validateCodeStore, SmsCodeSender smsCodeSender) {
         super(validateCodeProperties, validateCodeGenerator, validateCodeStore);
         this.smsCodeSender = smsCodeSender;
+    }
+
+    /**
+     * 短信验证码只有 POST 请求才能获取（避免直接在浏览器地址栏上直接访问调用）
+     */
+    @Override
+    protected boolean isPostOnly() {
+        return true;
     }
 
     @Override

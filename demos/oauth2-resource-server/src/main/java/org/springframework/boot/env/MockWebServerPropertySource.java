@@ -31,92 +31,91 @@ import java.io.IOException;
 
 /**
  * 创建一个默认的授权服务器，供测试
+ *
  * @author Rob Winch
  */
 public class MockWebServerPropertySource extends PropertySource<MockWebServer> implements
-		DisposableBean {
+        DisposableBean {
 
-	private static final MockResponse JWKS_RESPONSE = response(
-			"{ \"keys\": [ { \"kty\": \"RSA\", \"e\": \"AQAB\", \"n\": \"jvBtqsGCOmnYzwe_-HvgOqlKk6HPiLEzS6uCCcnVkFXrhnkPMZ-uQXTR0u-7ZklF0XC7-AMW8FQDOJS1T7IyJpCyeU4lS8RIf_Z8RX51gPGnQWkRvNw61RfiSuSA45LR5NrFTAAGoXUca_lZnbqnl0td-6hBDVeHYkkpAsSck1NPhlcsn-Pvc2Vleui_Iy1U2mzZCM1Vx6Dy7x9IeP_rTNtDhULDMFbB_JYs-Dg6Zd5Ounb3mP57tBGhLYN7zJkN1AAaBYkElsc4GUsGsUWKqgteQSXZorpf6HdSJsQMZBDd7xG8zDDJ28hGjJSgWBndRGSzQEYU09Xbtzk-8khPuw\" } ] }",
-			200
-	);
+    /**
+     * Name of the random {@link PropertySource}.
+     */
+    public static final String MOCK_WEB_SERVER_PROPERTY_SOURCE_NAME = "mockwebserver";
+    private static final MockResponse JWKS_RESPONSE = response(
+            "{ \"keys\": [ { \"kty\": \"RSA\", \"e\": \"AQAB\", \"n\": \"jvBtqsGCOmnYzwe_-HvgOqlKk6HPiLEzS6uCCcnVkFXrhnkPMZ-uQXTR0u-7ZklF0XC7-AMW8FQDOJS1T7IyJpCyeU4lS8RIf_Z8RX51gPGnQWkRvNw61RfiSuSA45LR5NrFTAAGoXUca_lZnbqnl0td-6hBDVeHYkkpAsSck1NPhlcsn-Pvc2Vleui_Iy1U2mzZCM1Vx6Dy7x9IeP_rTNtDhULDMFbB_JYs-Dg6Zd5Ounb3mP57tBGhLYN7zJkN1AAaBYkElsc4GUsGsUWKqgteQSXZorpf6HdSJsQMZBDd7xG8zDDJ28hGjJSgWBndRGSzQEYU09Xbtzk-8khPuw\" } ] }",
+            200
+    );
+    private static final MockResponse NOT_FOUND_RESPONSE = response(
+            "{ \"message\" : \"This mock authorization server responds to just one request: GET /.well-known/jwks.json.\" }",
+            404
+    );
+    private static final String NAME = "mockwebserver.url";
 
-	private static final MockResponse NOT_FOUND_RESPONSE = response(
-			"{ \"message\" : \"This mock authorization server responds to just one request: GET /.well-known/jwks.json.\" }",
-			404
-	);
+    private static final Log logger = LogFactory.getLog(MockWebServerPropertySource.class);
 
-	/**
-	 * Name of the random {@link PropertySource}.
-	 */
-	public static final String MOCK_WEB_SERVER_PROPERTY_SOURCE_NAME = "mockwebserver";
+    private boolean started;
 
-	private static final String NAME = "mockwebserver.url";
+    public MockWebServerPropertySource() {
+        super(MOCK_WEB_SERVER_PROPERTY_SOURCE_NAME, new MockWebServer());
+    }
 
-	private static final Log logger = LogFactory.getLog(MockWebServerPropertySource.class);
+    private static MockResponse response(String body, int status) {
+        return new MockResponse()
+                .setHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                .setResponseCode(status)
+                .setBody(body);
+    }
 
-	private boolean started;
+    @Override
+    public Object getProperty(String name) {
+        if (!name.equals(NAME)) {
+            return null;
+        }
+        if (logger.isTraceEnabled()) {
+            logger.trace("Looking up the url for '" + name + "'");
+        }
+        String url = getUrl();
+        return url;
+    }
 
-	public MockWebServerPropertySource() {
-		super(MOCK_WEB_SERVER_PROPERTY_SOURCE_NAME, new MockWebServer());
-	}
+    @Override
+    public void destroy() throws Exception {
+        getSource().shutdown();
+    }
 
-	@Override
-	public Object getProperty(String name) {
-		if (!name.equals(NAME)) {
-			return null;
-		}
-		if (logger.isTraceEnabled()) {
-			logger.trace("Looking up the url for '" + name + "'");
-		}
-		String url = getUrl();
-		return url;
-	}
+    /**
+     * Get's the URL (i.e. "http://localhost:123456")
+     *
+     * @return
+     */
+    private String getUrl() {
+        MockWebServer mockWebServer = getSource();
+        if (!this.started) {
+            intializeMockWebServer(mockWebServer);
+        }
+        String url = mockWebServer.url("").url().toExternalForm();
+        return url.substring(0, url.length() - 1);
+    }
 
-	@Override
-	public void destroy() throws Exception {
-		getSource().shutdown();
-	}
+    private void intializeMockWebServer(MockWebServer mockWebServer) {
+        Dispatcher dispatcher = new Dispatcher() {
+            @Override
+            public MockResponse dispatch(RecordedRequest request) {
+                if ("/.well-known/jwks.json".equals(request.getPath())) {
+                    return JWKS_RESPONSE;
+                }
 
-	/**
-	 * Get's the URL (i.e. "http://localhost:123456")
-	 * @return
-	 */
-	private String getUrl() {
-		MockWebServer mockWebServer = getSource();
-		if (!this.started) {
-			intializeMockWebServer(mockWebServer);
-		}
-		String url = mockWebServer.url("").url().toExternalForm();
-		return url.substring(0, url.length() - 1);
-	}
+                return NOT_FOUND_RESPONSE;
+            }
+        };
 
-	private void intializeMockWebServer(MockWebServer mockWebServer) {
-		Dispatcher dispatcher = new Dispatcher() {
-			@Override
-			public MockResponse dispatch(RecordedRequest request) {
-				if ("/.well-known/jwks.json".equals(request.getPath())) {
-					return JWKS_RESPONSE;
-				}
-
-				return NOT_FOUND_RESPONSE;
-			}
-		};
-
-		mockWebServer.setDispatcher(dispatcher);
-		try {
-			mockWebServer.start();
-			this.started = true;
-		} catch (IOException e) {
-			throw new RuntimeException("Could not start " + mockWebServer, e);
-		}
-	}
-
-	private static MockResponse response(String body, int status) {
-		return new MockResponse()
-				.setHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-				.setResponseCode(status)
-				.setBody(body);
-	}
+        mockWebServer.setDispatcher(dispatcher);
+        try {
+            mockWebServer.start();
+            this.started = true;
+        } catch (IOException e) {
+            throw new RuntimeException("Could not start " + mockWebServer, e);
+        }
+    }
 
 }

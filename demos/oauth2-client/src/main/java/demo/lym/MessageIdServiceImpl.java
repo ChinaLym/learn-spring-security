@@ -23,10 +23,6 @@ public class MessageIdServiceImpl {
 
     //messageId ，开始的时间戳，start the world，世界初始之日
     private static long START_THE_WORLD_MILLIS;
-    //机器码变量
-    private long machineId;
-    // messageId环，解决时间回退的关键，亦可在多线程情况下减少毫秒数切换的竞争
-    private AtomicLongArray messageIdCycle = new AtomicLongArray(CAPACITY);
 
     static {
         try {
@@ -37,10 +33,15 @@ public class MessageIdServiceImpl {
         }
     }
 
+    //机器码变量
+    private long machineId;
+    // messageId环，解决时间回退的关键，亦可在多线程情况下减少毫秒数切换的竞争
+    private AtomicLongArray messageIdCycle = new AtomicLongArray(CAPACITY);
+
     /**
      * 本机的machineId
      */
-    public MessageIdServiceImpl(int unionId){
+    public MessageIdServiceImpl(int unionId) {
         if (machineId == 0L) {
             machineId = unionId;
         }
@@ -49,6 +50,7 @@ public class MessageIdServiceImpl {
             throw new RuntimeException("the machine id is out of range,it must between 1 and 1023");
         }
     }
+
     /**
      * 核心实现的代码
      */
@@ -57,7 +59,7 @@ public class MessageIdServiceImpl {
             // 获取当前时间戳，此时间戳是当前时间减去start the world的毫秒数
             long timestamp = System.currentTimeMillis() - START_THE_WORLD_MILLIS;
             // 获取当前时间在messageIdCycle 中的下标，用于获取环中上一个MessageId
-            int index = (int)(timestamp & 255);
+            int index = (int) (timestamp & 255);
             long messageIdInCycle = messageIdCycle.get(index);
             //通过在messageIdCycle 获取到的messageIdInCycle，计算上一个MessageId的时间戳
             long timestampInCycle = messageIdInCycle >> TIMESTAMP_SHIFT_COUNT;

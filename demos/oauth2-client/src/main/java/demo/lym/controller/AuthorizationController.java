@@ -31,57 +31,62 @@ import static org.springframework.security.oauth2.client.web.reactive.function.c
 
 /**
  * 演示以三种方式进行授权并通过 webClient 调用资源服务器
+ *
  * @author lym
  */
 @Controller
 public class AuthorizationController {
 
-	@Value("${demo.resource.uri}" + "/message")
-	private String messagesBaseUri;
+    @Value("${demo.resource.uri}" + "/message")
+    private String messagesBaseUri;
 
-	@Autowired
-	private WebClient webClient;
+    @Autowired
+    private WebClient webClient;
 
 
-	/** /authorize?grant_type=authorization_code */
-	@GetMapping(value = "/authorize", params = "grant_type=authorization_code")
-	public String authorization_code_grant(Model model) {
-		List<String> messages = retrieveMessages("demo-auth-code");
-		model.addAttribute("messages", messages);
-		return "index";
-	}
+    /**
+     * /authorize?grant_type=authorization_code
+     */
+    @GetMapping(value = "/authorize", params = "grant_type=authorization_code")
+    public String authorization_code_grant(Model model) {
+        List<String> messages = retrieveMessages("demo-auth-code");
+        model.addAttribute("messages", messages);
+        return "index";
+    }
 
-	/** customer redirect url */
-	@GetMapping("/authorized")		// registered redirect_uri for authorization_code
-	public String authorized(Model model) {
-		List<String> messages = retrieveMessages("demo-auth-code");
-		model.addAttribute("messages", messages);
-		return "index";
-	}
+    /**
+     * customer redirect url
+     */
+    @GetMapping("/authorized")        // registered redirect_uri for authorization_code
+    public String authorized(Model model) {
+        List<String> messages = retrieveMessages("demo-auth-code");
+        model.addAttribute("messages", messages);
+        return "index";
+    }
 
-	@GetMapping(value = "/authorize", params = "grant_type=client_credentials")
-	public String client_credentials_grant(Model model, @RegisteredOAuth2AuthorizedClient OAuth2AuthorizedClient authorizedClient) {
-		System.out.println(authorizedClient);
-		List<String> messages = retrieveMessages("demo-client-creds");
-		model.addAttribute("messages", messages);
-		return "index";
-	}
+    @GetMapping(value = "/authorize", params = "grant_type=client_credentials")
+    public String client_credentials_grant(Model model, @RegisteredOAuth2AuthorizedClient OAuth2AuthorizedClient authorizedClient) {
+        System.out.println(authorizedClient);
+        List<String> messages = retrieveMessages("demo-client-creds");
+        model.addAttribute("messages", messages);
+        return "index";
+    }
 
-	@PostMapping(value = "/authorize", params = "grant_type=password")
-	public String password_grant(Model model) {
-		List<String> messages = retrieveMessages("demo-password");
-		model.addAttribute("messages", messages);
-		return "index";
-	}
+    @PostMapping(value = "/authorize", params = "grant_type=password")
+    public String password_grant(Model model) {
+        List<String> messages = retrieveMessages("demo-password");
+        model.addAttribute("messages", messages);
+        return "index";
+    }
 
-	@SuppressWarnings("unchecked")
-	private List<String> retrieveMessages(String clientRegistrationId) {
-		return this.webClient
-				.get()
-				.uri(this.messagesBaseUri)
-				.attributes(clientRegistrationId(clientRegistrationId))
-				.retrieve()
-				.bodyToMono(List.class)
-				.block();
-	}
+    @SuppressWarnings("unchecked")
+    private List<String> retrieveMessages(String clientRegistrationId) {
+        return this.webClient
+                .get()
+                .uri(this.messagesBaseUri)
+                .attributes(clientRegistrationId(clientRegistrationId))
+                .retrieve()
+                .bodyToMono(List.class)
+                .block();
+    }
 }

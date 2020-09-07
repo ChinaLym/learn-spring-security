@@ -1,11 +1,6 @@
 package demo.lym.reactor;
 
-import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-import reactor.core.scheduler.Schedulers;
-import reactor.util.function.Tuples;
-
-import java.util.function.BiFunction;
 
 /**
  * @author lym
@@ -17,8 +12,8 @@ public class Demo1 {
         String key = "message";
         Mono<String> r = Mono.just("Hello")
                 .subscriberContext(ctx -> ctx.put(key, "World"))
-                .flatMap( s -> Mono.subscriberContext()
-                        .map( ctx -> s + " " + ctx.getOrDefault(key, "Stranger")));
+                .flatMap(s -> Mono.subscriberContext()
+                        .map(ctx -> s + " " + ctx.getOrDefault(key, "Stranger")));
 
 
       /*  Flux.just("tom", "jack", "allen")

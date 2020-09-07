@@ -5,18 +5,18 @@ import com.fasterxml.jackson.annotation.JsonView;
 
 /**
  * 演示 {@link com.fasterxml.jackson.annotation.JsonView} 的使用
+ *
  * @author lym
  * @since 1.0
  */
 public class UserDTO {
 
-    public interface BASE {};
-    public interface DETAIL extends BASE {};
-
     private String username;
 
+    ;
     private String password;
 
+    ;
     private String info;
 
     @JsonView(BASE.class)
@@ -46,5 +46,11 @@ public class UserDTO {
     public UserDTO setInfo(String info) {
         this.info = info;
         return this;
+    }
+
+    public interface BASE {
+    }
+
+    public interface DETAIL extends BASE {
     }
 }

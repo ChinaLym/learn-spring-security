@@ -17,7 +17,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * 验证码过滤器
@@ -105,9 +108,10 @@ public class ValidateCodeFilter extends OncePerRequestFilter implements Initiali
                     logger.debug("validateCode success " + request.getRequestURI());
                 }
             } catch (Exception e) {
-                if(authenticationFailureHandler != null){
+                if (authenticationFailureHandler != null) {
                     authenticationFailureHandler.onAuthenticationFailure(request, response,
-                            new AuthenticationException(e.getMessage() + type, e) {});
+                            new AuthenticationException(e.getMessage() + type, e) {
+                            });
                 }
                 throw e;
             }

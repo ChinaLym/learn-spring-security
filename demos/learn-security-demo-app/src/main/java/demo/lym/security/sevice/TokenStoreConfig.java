@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package demo.lym.security.sevice;
 
@@ -20,69 +20,67 @@ import org.springframework.security.oauth2.provider.token.store.redis.RedisToken
  *
  */
 public class TokenStoreConfig {
-	
-	/**
-	 * 使用redis存储token的配置，只有在imooc.security.oauth2.tokenStore配置为redis时生效
-	 * @author zhailiang
-	 *
-	 */
-	@Configuration
-	@ConditionalOnProperty(prefix = "imooc.security.oauth2", name = "tokenStore", havingValue = "redis")
-	public static class RedisConfig {
-		
-		@Autowired
-		private RedisConnectionFactory redisConnectionFactory;
-		
-		/**
-		 * @return
-		 */
-		@Bean
-		public TokenStore redisTokenStore() {
-			return new RedisTokenStore(redisConnectionFactory);
-		}
-		
-	}
 
-	/**
-	 * 使用jwt时的配置，默认生效
-	 *
-	 * @author zhailiang
-	 *
-	 */
-	@Configuration
-	@ConditionalOnProperty(prefix = "imooc.security.oauth2", name = "tokenStore", havingValue = "jwt", matchIfMissing = true)
-	public static class JwtConfig {
+    /**
+     * 使用redis存储token的配置，只有在imooc.security.oauth2.tokenStore配置为redis时生效
+     *
+     * @author zhailiang
+     */
+    @Configuration
+    @ConditionalOnProperty(prefix = "imooc.security.oauth2", name = "tokenStore", havingValue = "redis")
+    public static class RedisConfig {
+
+        @Autowired
+        private RedisConnectionFactory redisConnectionFactory;
+
+        /**
+         * @return
+         */
+        @Bean
+        public TokenStore redisTokenStore() {
+            return new RedisTokenStore(redisConnectionFactory);
+        }
+
+    }
+
+    /**
+     * 使用jwt时的配置，默认生效
+     *
+     * @author zhailiang
+     */
+    @Configuration
+    @ConditionalOnProperty(prefix = "imooc.security.oauth2", name = "tokenStore", havingValue = "jwt", matchIfMissing = true)
+    public static class JwtConfig {
 
 
-		/**
-		 * @return
-		 */
-		@Bean
-		public TokenStore jwtTokenStore() {
-			return new JwtTokenStore(jwtAccessTokenConverter());
-		}
+        /**
+         * @return
+         */
+        @Bean
+        public TokenStore jwtTokenStore() {
+            return new JwtTokenStore(jwtAccessTokenConverter());
+        }
 
-		/**
-		 * @return
-		 */
-		@Bean
-		public JwtAccessTokenConverter jwtAccessTokenConverter(){
-			JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
-	        converter.setSigningKey("lym");
-	        return converter;
-		}
+        /**
+         * @return
+         */
+        @Bean
+        public JwtAccessTokenConverter jwtAccessTokenConverter() {
+            JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
+            converter.setSigningKey("lym");
+            return converter;
+        }
 
-		/**
-		 * @return
-		 */
-		@Bean
-		@ConditionalOnBean(TokenEnhancer.class)
-		public TokenEnhancer jwtTokenEnhancer(){
-			return new TokenJwtEnhancer();
-		}
+        /**
+         * @return
+         */
+        @Bean
+        @ConditionalOnBean(TokenEnhancer.class)
+        public TokenEnhancer jwtTokenEnhancer() {
+            return new TokenJwtEnhancer();
+        }
 
-	}
-
+    }
 
 
 }

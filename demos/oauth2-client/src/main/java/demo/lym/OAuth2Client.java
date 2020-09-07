@@ -2,7 +2,6 @@ package demo.lym;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
 import org.springframework.http.converter.FormHttpMessageConverter;
 import org.springframework.security.oauth2.client.http.OAuth2ErrorResponseErrorHandler;
 import org.springframework.security.oauth2.core.http.converter.OAuth2AccessTokenResponseHttpMessageConverter;
@@ -16,21 +15,21 @@ import java.util.Arrays;
 @SpringBootApplication
 public class OAuth2Client {
 
-	public static void main(String[] args) {
-		SpringApplication.run(OAuth2Client.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(OAuth2Client.class, args);
+    }
 
-	public RestTemplate restTemplate(){
-		RestTemplate restTemplate = new RestTemplate(
-				Arrays.asList(
-					new FormHttpMessageConverter(),
-					new OAuth2AccessTokenResponseHttpMessageConverter()
-				)
-		);
+    public RestTemplate restTemplate() {
+        RestTemplate restTemplate = new RestTemplate(
+                Arrays.asList(
+                        new FormHttpMessageConverter(),
+                        new OAuth2AccessTokenResponseHttpMessageConverter()
+                )
+        );
 
-		restTemplate.setErrorHandler(new OAuth2ErrorResponseErrorHandler());
+        restTemplate.setErrorHandler(new OAuth2ErrorResponseErrorHandler());
 
-		return restTemplate;
-	}
+        return restTemplate;
+    }
 
 }

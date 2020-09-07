@@ -9,7 +9,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
  * demo
- *
+ * <p>
  * http://demo.com/oauth/authorize?response_type=code&client_id=lym&redirect_uri=http://example.com&scope=all
  *
  * @author lym
@@ -26,7 +26,7 @@ public class AppDemo {
     }
 
     @GetMapping("/hi")
-    public String hello(){
+    public String hello() {
         return "Hello, app";
     }
 
